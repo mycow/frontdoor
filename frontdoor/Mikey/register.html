@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/common.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<title>Sign Up</title>
+	</head>
+	<body class="body-bg">
+		<!-- Header -->
+		<div class="header">
+			<h2>Sign Up</h2>
+		</div>
+
+		<!-- Content -->
+		<div class="content">
+			<form action="register.php" method="post">
+				<?php include('errors.php'); ?> <!-- Used to display errors -->
+
+
+				<!-- First name input -->
+				<div class="input-group">
+					<label>First Name</label>
+					<input type="text" name="firstname">
+				</div>
+
+				<!-- Last name input -->
+				<div class="input-group">
+					<label>Last Name</label>
+					<input type="text" name="lastname">
+				</div>
+
+				<!-- Email input -->
+				<div class="input-group">
+					<label>Email</label>
+					<input type="email" name="email">
+				</div>
+
+				<!-- Phone number input -->
+				<div class="input-group">
+					<label>Phone Number</label>
+					<input type="tel" name="phone">
+				</div>
+
+				<!-- Password input -->
+				<div class="input-group">
+					<label>Password</label>
+					<input type="password" name="password_1">
+				</div>
+
+				<!-- Password verification input -->
+				<div class="input-group">
+					<label>Confirm Password</label>
+					<input type="password" name="password_2">
+				</div>
+
+				<!-- Role input -->
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="renterRadio" id="renterSelect" value="option1">
+					<label class="form-check-label">Renter</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="landLordRadio" id="landLordSelect" value="option2">
+					<label class="form-check-label">Landlord</label>
+				</div>
+
+				<!-- Submit form -->
+				<div class="input-group">
+					<button type="submit" class="btn btn-primary" name="reg_user">Register</button>
+				</div>
+			</form>
+			<!-- Login if already a member -->
+			<p>Already a member? <a href="login.html">Sign in</a></p>
+		</div>
+	</body>
+</html>
