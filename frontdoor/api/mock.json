@@ -1,0 +1,23 @@
+{
+    "cards": [
+        {
+            "date":"3-12-19 2:47:50",
+            "type":"payment request",
+            "title":"Rent bitchez",
+            "owner":"Nathan Amarandos",
+            "amount":1000
+        },
+        {
+            "date":"3-12-19 2:00:00",
+            "type":"announcement",
+            "title":"Cleaners in 2 weeks",
+            "owner":"Davis Wiener",
+            "comments": [
+                {
+                    "postedby":"Eric Van Lare",
+                    "message":"Cool"
+                }
+            ]
+        }
+    ]
+}
