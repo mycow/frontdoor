@@ -1,23 +1,78 @@
 {
     "cards": [
         {
-            "date":"3-12-19 2:47:50",
-            "type":"payment request",
+            "id":"000001",
+            "date":"4-2-2018 2:47:50",
+            "type":"payment",
             "title":"Rent bitchez",
             "owner":"Nathan Amarandos",
             "amount":1000
         },
         {
-            "date":"3-12-19 2:00:00",
+            "id":"000002",
+            "date":"4-2-2018 2:00:00",
             "type":"announcement",
             "title":"Cleaners in 2 weeks",
             "owner":"Davis Wiener",
+            "likes": [ "Bill Lewis", "Nate Amarandos" ],
             "comments": [
                 {
                     "postedby":"Eric Van Lare",
                     "message":"Cool"
                 }
             ]
+        },
+        {
+            "id":"000003",
+            "date":"4-2-2018 14:49:00",
+            "type":"task",
+            "title":"Smokes lets go",
+            "owner":"Ricky",
+            "assignee":"Corey Trevor",
+            "completed":false,
+            "comments": [
+                {
+                    "postedby":"Randy Bobandy",
+                    "message":"Frig off"
+                },
+                {
+                    "postedby":"Jim Lahey",
+                    "message":"You've crossed the shitline now Ricky"
+                }
+            ]
+        },
+        {
+            "id":"000004",
+            "date":"4-2-2018 14:50:19",
+            "type":"setup",
+            "title":"Click here to setup utilities",
+            "link":"/utilities/"
+        },
+        {
+            "id":"000005",
+            "date":"4-2-2018 14:59:46",
+            "type":"sublease request",
+            "title":"Looking for a shed for the summer",
+            "message":"Need room for my kitties too",
+            "subleasername":"Bubbles"
+        },
+        {
+            "id":"000006",
+            "creationdate":"4-2-2018 15:01:12",
+            "type":"event",
+            "eventdate":"4-3-2018",
+            "title":"Liquor and Cheeseburger party",
+            "owner":"Jim Lahey",
+            "comments": []
+        },
+        {
+            "id":"000007",
+            "date":"4-2-2018 15:2:22",
+            "type":"vote",
+            "title":"Is Chief out of the pack",
+            "yes": [ "Rex", "King", "Boss" ],
+            "no": [ "Atari" ],
+            "comments": []
         }
     ]
 }

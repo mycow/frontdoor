@@ -120,8 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Redirect to home URL after login
-LOGIN_REDIRECT_URL = '/'
+# Redirect to feed URL after login
+LOGIN_REDIRECT_URL = '/feed/'
 
 # Logs emails sent to console so emails can be tested for now
 # TODO: implement actually sending emails
