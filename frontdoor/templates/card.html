@@ -1,0 +1,33 @@
+<ul>
+    <li><b>{{ card.type }}</b></li>
+    {% if card.type == 'announcement' %}
+        <li>{{ card.card.poster.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'payment' %}
+        <li>{{ card.card.poster.username }} --> {{ card.card.recipient.username }}</li>
+        <li>${{ card.amount }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'task' %}
+        <li>{{ card.card.poster.username }} --> {{ card.assignee.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'setup' %}
+        <li>{{ card.card.poster.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'sublease request' %}
+        <li>{{ card.card.poster.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'event' %}
+        <li>{{ card.card.poster.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% elif card.type == 'vote' %}
+        <li>{{ card.card.poster.username }}</li>
+        <li>{{ card.card.basecard.title }}</li>
+        <li>{{ card.card.basecard.time }}</li>
+    {% endif %}
+</ul>

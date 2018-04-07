@@ -4,8 +4,38 @@
 
 {% block content %}
     <h2>Feed</h2>
+    <form action="/feed/" method="post">
+        {% csrf_token %}
+        {{ ann_form }}
+        <input type="submit" value="Submit" name="ann_btn"/>
+    </form>
+    <form action="/feed/" method="post">
+        {% csrf_token %}
+        {{ prq_form }}
+        <input type="submit" value="Submit" name="prq_btn"/>
+    </form>
+    <form action="/feed/" method="post">
+        {% csrf_token %}
+        {{ tsk_form }}
+        <input type="submit" value="Submit" name="tsk_btn"/>
+    </form>
+    <form action="/feed/" method="post">
+        {% csrf_token %}
+        {{ evt_form }}
+        <input type="submit" value="Submit" name="evt_btn"/>
+    </form>
+    <form action="/feed/" method="post">
+        {% csrf_token %}
+        {{ vte_form }}
+        <input type="submit" value="Submit" name="vte_btn"/>
+    </form>
+    {% if cards %}
     <ul>
-        <li>Here is an example card</li>
-        <li>Here is an example card</li>
+        {% for card in cards %}
+        <li>
+            {% include "card.html" with card=card %}
+        </li>
+        {% endfor %}
     </ul>
+    {% endif %}
 {% endblock %}
