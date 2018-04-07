@@ -11,10 +11,15 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Include BOOTSTRAP3_FOLDER in path
+BOOTSTRAP3_FOLDER = os.path.abspath(os.path.join(BASE_DIR, '..', 'bootstrap3'))
+if BOOTSTRAP3_FOLDER not in sys.path:
+    sys.path.insert(0, BOOTSTRAP3_FOLDER)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api.apps.ApiConfig',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +127,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
 # Redirect to feed URL after login
 LOGIN_REDIRECT_URL = '/feed/'
 
@@ -129,3 +144,10 @@ LOGIN_REDIRECT_URL = '/feed/'
 # https://docs.djangoproject.com/en/2.0/topics/email/
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Settings for django-bootstrap3
+BOOTSTRAP3 = {
+    'set_required': False,  # For Django <= 1.8 only
+    'error_css_class': 'bootstrap3-error',
+    'required_css_class': 'bootstrap3-required',
+    'javascript_in_head': True,
+}
