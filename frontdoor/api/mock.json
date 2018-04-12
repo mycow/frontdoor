@@ -6,6 +6,7 @@
             "type":"payment",
             "title":"Rent bitchez",
             "owner":"Nathan Amarandos",
+            "is_payed":false,
             "amount":1000
         },
         {
@@ -23,12 +24,22 @@
             ]
         },
         {
+            "id":"000002",
+            "date":"4-4-2018 16:00:00",
+            "type":"announcement",
+            "title":"fjkdlhsaf asdfkjds rkjw eskdfj werkj sfdlkjwe salkjsdaf wlrjknawf, asfklj wefqwekj qwe asdfwq zxiuwqer oubq3f ad8uaf kljwe safdlkjn. 140????",
+            "owner":"Font Text",
+            "likes": [ ],
+            "comments": [ ]
+        },
+        {
             "id":"000003",
             "date":"4-2-2018 14:49:00",
             "type":"task",
             "title":"Smokes lets go",
             "owner":"Ricky",
             "assignee":"Corey Trevor",
+            "likes": [],
             "completed":false,
             "comments": [
                 {
@@ -61,7 +72,9 @@
             "creationdate":"4-2-2018 15:01:12",
             "type":"event",
             "eventdate":"4-3-2018",
+            "likes": [ "Randy Bobandy" ],
             "title":"Liquor and Cheeseburger party",
+            "message":"",
             "owner":"Jim Lahey",
             "comments": []
         },
@@ -69,6 +82,8 @@
             "id":"000007",
             "date":"4-2-2018 15:2:22",
             "type":"vote",
+            "owner":"Duke",
+            "likes": [],
             "title":"Is Chief out of the pack",
             "yes": [ "Rex", "King", "Boss" ],
             "no": [ "Atari" ],

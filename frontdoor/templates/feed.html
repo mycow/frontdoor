@@ -42,105 +42,37 @@
       <!--Feed Start-->
       <div class="col-sm-9">
 
-        <!--Payment Card-->
-        <div class="card payment">
-          <div id="iconDiv" class="glyphicon glyphicon-piggy-bank"></div>
-          <h1 id="paymentTitle"></h1>
-          <h4 id="amount">Amount: $</h4>
-          <br>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-        </div>
-        <hr>
+        <form action="/feed/" method="post">
+            {% csrf_token %}
+            {{ ann_form }}
+            <input type="submit" value="Submit" name="ann_btn"/>
+        </form>
+        <form action="/feed/" method="post">
+            {% csrf_token %}
+            {{ prq_form }}
+            <input type="submit" value="Submit" name="prq_btn"/>
+        </form>
+        <form action="/feed/" method="post">
+            {% csrf_token %}
+            {{ tsk_form }}
+            <input type="submit" value="Submit" name="tsk_btn"/>
+        </form>
+        <form action="/feed/" method="post">
+            {% csrf_token %}
+            {{ evt_form }}
+            <input type="submit" value="Submit" name="evt_btn"/>
+        </form>
+        <form action="/feed/" method="post">
+            {% csrf_token %}
+            {{ vte_form }}
+            <input type="submit" value="Submit" name="vte_btn"/>
+        </form>
 
-        <!--Announcement Card-->
-        <div class="card announcement">
-          <div id="iconDiv" class="glyphicon glyphicon-bullhorn"></div>
-          <h1 id="announceTitle"></h1>
-          <p id="announcement"></p>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-          <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
-          <div id="announcementComm" class="collapse">
-          </div>
-        </div>
-        <hr>
-
-        <!--Task Card-->
-        <div class="card task">
-          <div id="iconDiv" class="glyphicon glyphicon-tasks"></div>
-          <h1 id="taskTitle"></h1>
-          <h4 id="taskAssign">Assigned Task: </h4>
-          <h5 id="assignee"></h5>
-          <h5 id="completeDate"></h5>
-          <!--completed?-->
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-          <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
-          <div id="taskComm" class="collapse">
-          </div>
-        </div>
-        <hr>
-
-        <!--Setup Card-->
-        <div class="card setup">
-          <div id="iconDiv" class="glyphicon glyphicon-wrench"></div>
-          <h1 id="setupTitle"></h1>
-          <p id="tipLink"></p>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-        </div>
-        <hr>
-
-        <!--Leasing Card-->
-        <div class="card leasing">
-          <div id="iconDiv" class="glyphicon glyphicon-pushpin"></div>
-          <h1 id="leaseTitle"></h1>
-          <p id="leaseMessage"></p>
-          <h5 id="leaserName"></h5>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-          <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
-          <div id="leaseComm" class="collapse">
-          </div>
-        </div>
-        <hr>
-
-        <!--Event Card-->
-        <div class="card event">
-          <div id="iconDiv" class="glyphicon glyphicon-calendar"></div>
-          <h1 id="eventTitle"></h1>
-          <p id="eventMessage"></p>
-          <p id="eventDate"></p>
-          <p id="eventTime"></p>
-          <p id="eventFrom"></p>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-          <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
-          <div id="eventComm" class="collapse">
-          </div>
-        </div>
-        <hr>
-
-        <!--Vote Card-->
-        <div class="card vote">
-          <div id="iconDiv" class="glyphicon glyphicon-stats"></div>
-          <h1 id="voteTitle"></h1>
-            <span>
-              <input class="btn btn-success" type="button" value="Yes" />
-              <input type="hidden" name="yes" value="{{ yes }}" />
-              <input class="btn btn-danger" type="button" value="No" />
-              <input type="hidden" name="no" value="{{ no }}" />
-            </span>
-          <p id="yesList"></p>
-          <p id="noList"></p>
-          <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by </h5>
-          <br><br>
-          <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#voteComm">Comments</button>
-          <div id="voteComm" class="collapse">
-          </div>
-        </div>
-        <hr>
+        {% if cards %}
+        {% for card in cards %}
+        {% include "card.html" with card=card %}
+        {% endfor %}
+        {% endif %}
 
       </div>
     </div>

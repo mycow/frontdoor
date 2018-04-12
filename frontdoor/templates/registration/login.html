@@ -3,6 +3,7 @@
 {% load static from staticfiles %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +39,14 @@
     <div id="login">
       {% bootstrap_form form %}
     <div>
+    <!-- <div>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </div>
+    <div>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+    </div> -->
     <div>
       <input class="btn btn-primary" type="submit" value="Login" />
       <input type="hidden" name="next" value="{{ next }}" />
@@ -46,6 +55,7 @@
 
   {# Assumes you setup the password_reset view in your URLconf #}
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  <p><a href="{% url 'signup' %}">Signup</a></p>
 
   {% endblock %}
   </body>
