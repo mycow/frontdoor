@@ -1,0 +1,65 @@
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.row.content {height: 1500px}
+    
+  /* Set 100% height and 40px nav padding */
+.sidenav {
+  height: 100%;
+  padding: 40px;
+}
+    
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+    
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  
+  .row.content {height: auto;} 
+}
+
+hr{width: 50%}
+
+h1{font-family: -apple-system-headline, BlinkMacSystemFont, sans-serif;}
+
+h3{{font-family: -apple-system-subheadline, BlinkMacSystemFont, sans-serif;}}
+
+body {font-family: -apple-system, BlinkMacSystemFont, sans-serif;}
+
+/* Base card styling */
+.card {
+  width: 50%;
+  padding: 20px;
+  margin: 0px auto;
+  border: 2px solid grey;
+  border-radius: 10px 10px 10px 10px
+}
+
+/* Separate card types by color
+.announcement {border: 5px solid #FF1800 !important;}
+
+.payment {border: 5px solid #00C12B !important;}
+
+.task {border: 5px solid #FFA400 !important;}
+
+.leasing {border: 5px solid #1049A9 !important;}
+
+.event {border: 5px solid #BF3D30 !important}
+
+.vote {border: 5px solid #A66B00}
+*/
+
+/* In-card element styling */
+#iconDiv{float: right;}
+
+.timeStamp{
+  float: right;
+  vertical-align: bottom;
+  font-family: -apple-system-short-footnote, BlinkMacSystemFont, sans-serif;
+}

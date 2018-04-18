@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from frontdoor.choices import *
 
 class Landlord(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -84,3 +85,16 @@ class Vote(models.Model):
     card = models.ForeignKey(HouseCard, on_delete=models.CASCADE)
     yes = models.ManyToManyField(User, related_name='yes')
     no = models.ManyToManyField(User, related_name='no')
+
+class Profile(models.Model):
+    TENANT = 'T'
+    LANDLORD = 'L'
+    USER_TYPE_CHOICES = (
+        ('T','Tenant'),
+        ('L','Landlord'),
+    )
+
+    type = models.CharField(max_length=5, choices=USER_TYPE_CHOICES, default='T')
+
+tenants = Profile.objects.filter(type=Profile.TENANT)
+landlords = Profile.objects.filter(type=Profile.LANDLORD)

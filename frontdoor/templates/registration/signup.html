@@ -1,0 +1,30 @@
+{% extends 'base_generic.html' %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/signUpStyle.css' %}">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<title>Sign Up</title>
+</head>
+<body class=".body-bg" style="background: url('{% static 'images/frontdoor.jpg' %}')">
+		<div>
+			<div class="header">
+				<h2>Register</h2>
+			</div>
+			<form method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-primary" type="submit">Sign Up</button>
+			</form>
+		</div>
+</body>
+{% endblock %}
+</html>
