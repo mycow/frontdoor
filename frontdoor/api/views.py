@@ -1,16 +1,39 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from datetime import date
+from rest_framework import viewsets, permissions
 
+from .serializers import *
 from .models import *
 from .util import *
 from .forms import *
 
 def index(request):
     return render(request, 'index.html', context={})
+
+class AnnouncementViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+
+class PaymentRequestViewSet(viewsets.ModelViewSet):
+    queryset = PaymentRequest.objects.all()
+    serializer_class = PaymentRequestSerializer
+
+class CardViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+@login_required
+def rentCalculation(request):
+    return render(request, 'rentcalculator.html', context={})
 
 @login_required
 def feed(request):
