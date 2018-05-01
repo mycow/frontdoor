@@ -6,7 +6,12 @@
   height: 100%;
   padding: 40px;
 }
-    
+ 
+.card .text-center {
+  width: 100%;
+  height: 100%;
+}
+
 /* Set black background color, white text and some padding */
 footer {
   background-color: #555;
@@ -24,7 +29,15 @@ footer {
   .row.content {height: auto;} 
 }
 
-hr{width: 50%}
+hr.actionDiv { 
+  border: 0; 
+  height: 1px; 
+  width: 50%;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+}
 
 h1{font-family: -apple-system-headline, BlinkMacSystemFont, sans-serif;}
 
@@ -32,34 +45,29 @@ h3{{font-family: -apple-system-subheadline, BlinkMacSystemFont, sans-serif;}}
 
 body {font-family: -apple-system, BlinkMacSystemFont, sans-serif;}
 
+.tab-content {
+ 
+}
+
 /* Base card styling */
 .card {
   width: 50%;
-  padding: 20px;
+  padding: 15px;
   margin: 0px auto;
   border: 2px solid grey;
-  border-radius: 10px 10px 10px 10px
+  border-radius: 10px 10px 10px 10px;
+  background-color: : linear-gradient(#111111 75%, #D3D3D3 20%);
 }
 
-/* Separate card types by color
-.announcement {border: 5px solid #FF1800 !important;}
-
-.payment {border: 5px solid #00C12B !important;}
-
-.task {border: 5px solid #FFA400 !important;}
-
-.leasing {border: 5px solid #1049A9 !important;}
-
-.event {border: 5px solid #BF3D30 !important}
-
-.vote {border: 5px solid #A66B00}
-*/
-
 /* In-card element styling */
-#iconDiv{float: right;}
 
-.timeStamp{
-  float: right;
+.timeStamp {
+  text-align: left;
   vertical-align: bottom;
   font-family: -apple-system-short-footnote, BlinkMacSystemFont, sans-serif;
 }
+
+/*.commentSec {
+  background-color: #D3D3D3;
+  border-radius: 0px 0px 10px 10px;
+}*/

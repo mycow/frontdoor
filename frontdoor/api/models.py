@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
-from frontdoor.choices import *
+from .choices import *
 
 class Landlord(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -13,37 +13,40 @@ class Address(models.Model):
     code = models.TextField()
 
 class House(models.Model):
-    house_name = models.CharField(max_length=100)
-    house_address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)        
+    house_name = models.CharField(max_length=100, null=True)
+    house_address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
     landlord = models.ForeignKey(Landlord, on_delete=models.SET_NULL, null=True)
 
 class Lease(models.Model):
-    house = models.ForeignKey(House, on_delete=models.CASCADE)
+    # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)        
+    house = models.ForeignKey(House, on_delete=models.CASCADE, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    leases = models.ManyToManyField(Lease)
     ACCOUNT_TYPES = (
         ('T','Tenant'),
         ('L','Landlord'),
     )
     account_type = models.CharField(max_length = 1, choices=ACCOUNT_TYPES)
+    # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)    
+    leases = models.ManyToManyField(Lease)
 
 class Tenant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    current_house = models.ForeignKey(House, on_delete=models.SET_NULL, null=True)
+    current_lease = models.ForeignKey(Lease, on_delete=models.SET_NULL, null=True)
 
 class Comment(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
 
 class Card(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     time = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=140)
-    house = models.ForeignKey(House, on_delete=models.CASCADE)
+    lease = models.ForeignKey(Lease, on_delete=models.CASCADE, null=True)
 
 class HouseCard(models.Model):
     basecard = models.OneToOneField(Card, on_delete=models.CASCADE)
