@@ -1,0 +1,85 @@
+    {% if card.type == 'announcement' %}
+        <!--Announcement Card-->
+        <div class="card announcement">
+            <h3 id="announceTitle"><span id="iconDiv" class="glyphicon glyphicon-bullhorn"></span>  {{ card.card.basecard.title }}</h3>
+            <p id="announcement"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <div class="commentSec">
+                <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
+                <div id="announcementComm" class="collapse"></div>
+            </div>
+        </div>
+    {% elif card.type == 'payment' %}
+        <!--Payment Card-->
+        <div class="card payment">
+            <h3 id="paymentTitle"><span id="iconDiv" class="glyphicon glyphicon-piggy-bank"></span>  {{ card.card.basecard.title }}</h3>
+            <h4 id="amount">Amount: ${{ card.amount }}</h4>
+            <h4 id="charged">Charged: {{ card.card.recipient.username }}</h4>
+            <br>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+        </div>
+    {% elif card.type == 'task' %}
+        <!--Task Card-->
+        <div class="card task">
+            <h3 id="taskTitle"><span id="iconDiv" class="glyphicon glyphicon-tasks"></span>  {{ card.card.basecard.title }}</h3>
+            <h5 id="assignee">Assigned To: {{ card.assignee.username }}</h5>
+            <h6 id="completeDate"></h6>
+            <!--completed?-->
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
+            <div id="taskComm" class="collapse"></div>
+        </div>
+    {% elif card.type == 'setup' %}
+        <!--Setup Card-->
+        <div class="card setup">
+        <h3 id="setupTitle"><span id="iconDiv" class="glyphicon glyphicon-wrench"></span>  {{ card.card.basecard.title }}</h3>
+        <p id="tipLink"></p>
+        <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+        <br><br>
+        </div>
+    {% elif card.type == 'sublease request' %}
+        <!--Leasing Card-->
+        <div class="card leasing">
+            <h3 id="leaseTitle"><span id="iconDiv" class="glyphicon glyphicon-pushpin"></span> {{ card.card.basecard.title }}</h3>
+            <p id="leaseMessage"></p>
+            <h6 id="leaserName"></h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
+            <div id="leaseComm" class="collapse"></div>
+        </div>
+    {% elif card.type == 'event' %}
+        <!--Event Card-->
+        <div class="card event">
+            <h3 id="eventTitle"><span id="iconDiv" class="glyphicon glyphicon-calendar"></span>  {{ card.card.basecard.title }}</h3>
+            <p id="eventMessage"></p>
+            <p id="eventDate"></p>
+            <p id="eventTime"></p>
+            <p id="eventFrom"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
+            <div id="eventComm" class="collapse"></div>
+        </div>
+    {% elif card.type == 'vote' %}
+        <!--Vote Card-->
+        <div class="card vote">
+        <h3 id="voteTitle"><span id="iconDiv" class="glyphicon glyphicon-stats"></span>  {{ card.card.basecard.title }}</h3>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <span>
+            <input class="btn btn-success" type="button" value="Yes" />
+            <input type="hidden" name="yes" value="{{ yes }}" />
+            <input class="btn btn-danger" type="button" value="No" />
+            <input type="hidden" name="no" value="{{ no }}" />
+            </span>
+        <p id="yesList"></p>
+        <p id="noList"></p>
+        <br>
+        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#voteComm">Comments</button>
+        <div id="voteComm" class="collapse">
+        </div>
+        </div>
+    {% endif %}

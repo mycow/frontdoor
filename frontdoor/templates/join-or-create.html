@@ -1,0 +1,44 @@
+{% extends 'base_generic.html' %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/jocStyle.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/jocScript.js' %}"></script>
+
+	<title>House Setup</title>
+</head>
+<body class="body-bg" style="background: url('{% static 'images/frontdoor.jpg' %}')">
+	<div class="centerCont">
+		<div class="wrapper">
+			<h4 class="header">Create or join a house to get started.</h4>
+			<div class="selection">
+				<br/>
+				<button class="btn btn-primary" id="createBtn">Create House</button>
+				<button class="btn btn-primary" id="joinBtn">Join House</button>
+			</div>
+			<br/>
+			<div class="forms">
+				<div class="createForm">
+					create placeholder
+				</div>
+				<div class="joinForm">
+					join placeholder
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+{% endblock %}
+</html>
