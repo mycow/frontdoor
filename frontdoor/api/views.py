@@ -56,11 +56,13 @@ def accountSettings(request):
             # lease = evl.current_lease
             # account.leases.add(lease)
             if account_type == 'T':
-                tenant = Tenant(user=request.user)
-                tenant.save()
+                if not Tenant.objects.filter(user__id=request.user.id).exists():
+                    tenant = Tenant(user=request.user)
+                    tenant.save()
             elif account_type == 'L':
-                landlord = Landlord(user=request.user)
-                landlord.save()
+                if not Landlord.objects.filter(user__id=request.user.id).exists():
+                    landlord = Landlord(user=request.user)
+                    landlord.save()
             return redirect('/house-settings/')
     # else:
     #     form = AccountSettingsForm(request.user)
@@ -226,7 +228,7 @@ def feed(request):
 def signup(request):
     # if request.user.is_authenticated:
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -242,9 +244,31 @@ def signup(request):
             # account.leases.add(lease)
             # tenant = Tenant(user=request.user, current_lease=lease)
             # tenant.save()
-            return redirect('/account-settings/')
+
+            account_type = form.cleaned_data.get('user_type')
+            # raw_password = form.cleaned_data.get('password1')
+            # user = authenticate(username=username, password=raw_password)
+
+            # login(request, user)
+            # TODO: extend the form to cover the rest of this lol
+            if Account.objects.filter(user__id=user.id).exists():
+                account = Account.objects.get(user__id=user.id)
+                account.account_type = account_type
+            else:
+                account = Account(user=user, account_type=account_type)
+            account.save()
+            # evl = Tenant.objects.get(user__username='eric')
+            # lease = evl.current_lease
+            # account.leases.add(lease)
+            if account_type == 'T':
+                tenant = Tenant(user=user)
+                tenant.save()
+            elif account_type == 'L':
+                landlord = Landlord(user=user)
+                landlord.save()
+            return redirect('/house-settings/')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
     # else:
     #     return feed(request)
