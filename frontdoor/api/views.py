@@ -223,23 +223,6 @@ def feed(request):
         'evt_form':evt_form,
         'vte_form':vte_form})
 
-# def post_announcement(request):
-#     if request.method == 'POST':
-#         form = PostAnnouncement(request.POST)
-#         if form.is_valid():
-#             lease = get_lease(request.user)
-#             card1 = Card(title=form.cleaned_data['title'], lease=lease)
-#             card1.save()
-#             hcard = HouseCard(basecard=card1, poster=request.user)
-#             hcard.save()
-#             announcement = Announcement(card=hcard)
-#             announcement.save()
-#     else:
-#         form = PostAnnouncement()
-#     cards = get_cards(request)
-#     form = PostAnnouncement()
-#     return render(request, 'feed.html', context={'cards':cards, 'form':form})
-
 def signup(request):
     # if request.user.is_authenticated:
     if request.method == 'POST':
@@ -266,44 +249,3 @@ def signup(request):
     # else:
     #     return feed(request)
 
-def testdata(request):
-    # # DO NOT RUN MORE THAN ONCE YET
-    # # create house and account for current user
-    # account1 = Account(user=request.user, account_type='T')
-    # account1.save()
-    # addy = Address(street='860 Washington St', city='Santa Clara', state='CA', code='95050')
-    # addy.save()
-    # house = House(house_address=addy, house_name='Courtside')
-    # house.save()
-    # lease = Lease(house=house, start_date=date(2017, 7, 5), end_date=date(2018, 7, 5))
-    # lease.save()
-    # account1.leases.add(lease)
-    # account1.save()
-    # tenant = Tenant(user=request.user, current_lease=lease)
-    # tenant.save()
-
-    # # create an announcement from current user
-    # card1 = Card(title='This is an announcement', house=house)
-    # card1.save()
-    # hcard = HouseCard(basecard=card1, poster=request.user)
-    # hcard.save()
-    # announcement = Announcement(card=hcard)
-    # announcement.save()
-    # createleaseandhouseandcreateaccountforuser(request)
-    createaccountforuserandaddthemtohouse(request)
-    # feed(request)
-    cards = get_cards(request)
-    return render(request, 'feed.html', context={'cards':cards})
-
-def deletestuff(request):
-    announcements = Announcement.objects.all()
-    announcements.delete()
-
-    hcards = HouseCard.objects.all()
-    hcards.delete()
-
-    cards = Card.objects.all()
-    cards.delete()
-
-    # cards = get_cards(request)
-    # return render(request, 'feed.html', context={'cards':cards})

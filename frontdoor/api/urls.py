@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-# Routers provide an easy way of automatically determining the URL conf.
+# API routes
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'announcements', views.AnnouncementViewSet)
