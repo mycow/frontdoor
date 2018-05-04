@@ -4,6 +4,9 @@
 
 {% block content %}
     <form>
-        <button type="submit">Calculate</button>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" name="prq_btn"/>
+        <!-- <button type="submit">Calculate</button> -->
     </form>
 {% endblock %}

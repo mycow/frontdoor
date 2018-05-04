@@ -3,11 +3,62 @@ from django import forms
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
 import datetime
 
 from .models import *
 from .fields import *
 from .util import *
+
+class AccountSettingsForm(forms.Form):
+    TYPE_CHOICES = (
+        ('T', 'Tenant'),
+        ('L', 'Landlord'),
+    )
+    account_type = forms.ChoiceField(choices=TYPE_CHOICES, label='Account Type')
+
+    def __init__(self, user, *args, **kwargs):
+        super(AccountSettingsForm, self).__init__(*args, **kwargs)
+        # account = Account.objects.get(user__username=user)
+
+class HouseSettingsForm(forms.Form):
+
+    def __init__(self, user, *args, **kwargs):
+        super(HouseSettingsForm, self).__init__(*args, **kwargs)
+
+class InviteForm(forms.Form):
+    invite_code = forms.CharField()
+
+    def __init__(self, user, *args, **kwargs):
+        super(InviteForm, self).__init__(*args, **kwargs)
+
+class AddHouseForm(forms.Form):
+    house_name = forms.CharField(max_length=100, required=False)
+    street = forms.CharField()
+    city = forms.CharField()
+    state = forms.CharField()
+    code = forms.CharField()
+    lease_start = forms.DateField(initial=datetime.date.today)
+    lease_end = forms.DateField(initial=datetime.date.today)
+
+    def __init__(self, user, *args, **kwargs):
+        super(AddHouseForm, self).__init__(*args, **kwargs)
+
+class SetToCurrentLease(forms.Form):
+
+    def __init__(self, user, *args, **kwargs):
+        super(SetToCurrentLease, self).__init__(*args, **kwargs)
+
+# class UserCreateForm(UserCreationForm):
+
+#     class Meta:
+
+class RentCalculator(forms.Form):
+    num_tenants = forms.IntegerField(label='Number of Tenants')
+    total_rent = forms.IntegerField(label='Total Rent')
+
+    def __init__(self, user, *args, **kwargs):
+        super(RentCalculator, self).__init__(*args, **kwargs)
 
 class PostAnnouncement(forms.Form):
     title = forms.CharField(label='Announcement', max_length=140)

@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Add a House{% endblock %}
+
+{% block content %}
+    <p>Add from invite code</p>
+    <form action="/add-house/" method="post">
+        <!-- <p>Add a house</p> -->
+        {% csrf_token %}
+        {{ invite_form }}
+        <input type="submit" value="Submit" name="invite_btn"/>
+        <!-- <button type="submit">Calculate</button> -->
+    </form>
+    <p>Add a new house</p>
+    <form action="/add-house/" method="post">
+        <!-- <p>Add a house</p> -->
+        {% csrf_token %}
+        {{ new_house_form }}
+        <input type="submit" value="Submit" name="new_house_btn"/>
+        <!-- <button type="submit">Calculate</button> -->
+    </form>
+{% endblock %}

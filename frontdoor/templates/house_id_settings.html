@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ house.house.house_name }}{% endblock %}
+
+{% block content %}
+    {% if is_current_lease %}
+    <p>This is your current lease</p>
+    {% else %}
+    <form action="/house-settings/{{ house.id }}/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Set to Current Lease" name="btn"/>
+    </form>
+    {% endif %}
+    <p>Tenants:</p>
+    <ul>
+    {% for t in tenants %}
+    <div class="tenant">
+        <li>{{ t.user.username }}</li>
+    </div>
+    {% endfor %}
+    </ul>
+    <p>Invite Code: {{ invite_code }}</p>
+    <!-- {% if houses %}
+    {% for house in houses %}
+    <div class="house">
+        <h1>{{ house.house.house_name }}</h1>
+        <h5>{{ house.start_date }} – {{ house.end_date }}</h5>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <a href="{% url 'add-house'%}">Add House</a> -->
+{% endblock %}

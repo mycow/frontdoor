@@ -12,6 +12,11 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+def get_houses(request):
+    account = Account.objects.get(user__id=request.user.id)
+    # print (account.leases.all())
+    return account.leases.all()
+
 def get_cards(request):
     user1 = User.objects.filter(username='evl')
     print(user1)
