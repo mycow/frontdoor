@@ -38,6 +38,6 @@ urlpatterns = [
     path('rent/', views.rentCalculation, name='rentcalculator'),
     # path('cards/', views.cards, name='cards'),
     # path('post_announcement/', views.post_announcement, name='post_announcement'),
-    path('maketestdata/', views.testdata, name='maketestdata'),
+    # path('maketestdata/', views.testdata, name='maketestdata'),
     path('', views.index, name='index'),
 ]
