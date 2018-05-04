@@ -1,0 +1,12 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Rent{% endblock %}
+
+{% block content %}
+    <form>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" name="prq_btn"/>
+        <!-- <button type="submit">Calculate</button> -->
+    </form>
+{% endblock %}

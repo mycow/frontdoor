@@ -1,21 +1,30 @@
 {% extends 'base_generic.html' %}
-
-{% block sidebar %}
-<ul class="sidebar-nav">
-  {% if user.is_authenticated %}
-    <li>User: {{ user.get_username }}</li>
-    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-  {% else %}
-    <li><a href="{% url 'login'%}">Login</a></li>
-  {% endif %} 
-</ul>
-{% endblock %}
-
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+{% block sidebar %}{% endblock %}
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/signUpStyle.css' %}">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<title>Sign Up</title>
+</head>
+<body class=".body-bg" style="background: url('{% static 'images/frontdoor.jpg' %}')">
+		<div>
+			<div class="header">
+				<h2>Register</h2>
+			</div>
+			<form method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-primary" type="submit">Sign Up</button>
+			</form>
+		</div>
+</body>
 {% endblock %}
+</html>
