@@ -1,6 +1,36 @@
+from django.db.models import Q
 from rest_framework import serializers, routers, viewsets
 
 from .models import *
+
+class LeaseSerializer(serializers.ModelSerializer):
+    house_name = serializers.SerializerMethodField()
+    landlord = serializers.SerializerMethodField()
+    is_current = serializers.SerializerMethodField()
+
+    def get_house_name(self, obj):
+        return obj.house.house_name
+
+    def get_landlord(self, obj):
+        return obj.house.landlord
+
+    def get_is_current(self, obj):
+        tenant = Tenant.objects.get(user__username=self.context['user'])
+        return Lease.objects.filter(Q(id=tenant.current_lease.id) & Q(id=obj.id)).exists()
+
+    class Meta:
+        model = Lease
+        fields = ('id', 'house_name', 'start_date', 'end_date', 'landlord', 'is_current')
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    likes = serializers.SerializerMethodField()
+
+    def get_likes(self, obj):
+        return obj.likes.count()
+
+    class Meta:
+        model = ChatMessage
+        fields = ('lease', 'message', 'time', 'poster', 'likes')
 
 class CardSerializer(serializers.ModelSerializer):
     date = serializers.SerializerMethodField()
@@ -12,6 +42,7 @@ class CardSerializer(serializers.ModelSerializer):
         return obj.time
 
     def get_house(self, obj):
+        # print (obj.title)
         return House.objects.get(id=obj.lease.house.id).house_name
 
     # def get_user(self, obj):
@@ -19,6 +50,7 @@ class CardSerializer(serializers.ModelSerializer):
 
     def get_content(self, obj):
         # print (obj.id)
+        # print (self.context['user'])
         if HouseCard.objects.filter(basecard__id=obj.id):
             hc = HouseCard.objects.get(basecard__id=obj.id)
             if Announcement.objects.filter(card__id=hc.id):
@@ -44,7 +76,21 @@ class CardSerializer(serializers.ModelSerializer):
         fields = ('id', 'date', 'title', 'house', 'content')
 
     def create(self, valudated_data):
-        return Card.objects.filter(title='you owe me money').create(**valudated_data)
+        print (valudated_data)
+        card = Card.objects.create(**valudated_data)
+        return card
+
+    # def update(self, instance, validated_data):
+    #     if HouseCard.objects.filter(basecard__id=instance.id):
+    #         hc = HouseCard.objects.get(basecard__id=instance.id)
+    #         if Announcement.objects.filter(card__id=hc.id):
+                # return AnnouncementSerializer(Announcement.objects.get(card__id=hc.id)).data
+            # if Task.objects.filter(card__id=hc.id):
+            #     return TaskSerializer(Task.objects.get(card__id=hc.id)).data
+            # if Vote.objects.filter(card__id=hc.id):
+            #     return VoteSerializer(Vote.objects.get(card__id=hc.id)).data
+            # if Event.objects.filter(card__id=hc.id):
+            #     return EventSerializer(Event.objects.get(card__id=hc.id)).data
 
 class SubleaseRequestSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
@@ -208,7 +254,8 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         return Announcement.objects.create(**valudated_data)
 
     def update(self, instance, validated_data):
-        instance.id = validated_data.get('id')
+        # instance.id = validated_data.get('id')
+        # instance.owner = validated_data('')
         instance.save()
         # instance.title = validated_data('card__basecard__title')
 

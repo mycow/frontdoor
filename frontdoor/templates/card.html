@@ -5,6 +5,7 @@
         <h1 id="announceTitle">{{ card.card.basecard.title }}</h1>
         <p id="announcement"></p>
         <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
+        <p>likes ({{ card.card.likes }})</p>
         <br><br>
         <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
         <div id="announcementComm" class="collapse">

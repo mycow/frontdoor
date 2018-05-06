@@ -40,6 +40,7 @@ class Tenant(models.Model):
 class Comment(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
+    message = models.TextField(null=True)
 
 class Card(models.Model):
     # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
@@ -87,3 +88,13 @@ class Vote(models.Model):
     card = models.ForeignKey(HouseCard, on_delete=models.CASCADE)
     yes = models.ManyToManyField(User, related_name='yes')
     no = models.ManyToManyField(User, related_name='no')
+
+class ChatMessage(models.Model):
+    lease = models.ForeignKey(Lease, on_delete=models.CASCADE, null=True)
+    message = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    poster = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='chatlikes')    
+
+# class Sublease(models.Model):
+

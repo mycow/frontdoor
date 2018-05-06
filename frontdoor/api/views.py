@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from datetime import date
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.views.decorators.http import require_POST
 
 from .serializers import *
 from .models import *
@@ -13,6 +16,27 @@ from .forms import *
 
 def index(request):
     return render(request, 'index.html', context={})
+
+class LeaseViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Lease.objects.all()
+    serializer_class = LeaseSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        # leases = Account.objects.get(user=self.request.user).leases
+        # return Lease.objects.filter(id__in=leases)
+        return Account.objects.get(user=self.request.user).leases.all()
+
+class ChatMessageViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = ChatMessage.objects.all()
+    serializer_class = ChatMessageSerializer
+
+    def get_queryset(self):
+        return ChatMessage.objects.filter(lease=get_lease(self.request.user))
 
 class AnnouncementViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -30,6 +54,117 @@ class CardViewSet(viewsets.ModelViewSet):
 
     def get_serializer_context(self):
         return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        return Card.objects.filter(lease=get_lease(self.request.user))
+
+    # @action(methods=['post'], detail=True, permission_classes=[permissions.IsAuthenticated])
+    # def like(self, request, card_id=None):
+    #     print (id)
+
+@api_view(['POST'])
+def card_list_view(request, card_id):
+    print(request.data['title'])
+    # cards = Card.objects.all()
+    # serializer = CardSerializer(cards)
+    # return Response(serializer.data)
+
+    # card = Card.objects.get(id=card_id)
+    # hc = HouseCard.objects.get(basecard=card)
+    # print (request.user)
+    # hc.likes.add(request.user)
+    # hc.save()
+
+    # print ("hello there")
+    return feed(request)
+
+@api_view(['POST'])
+def changeUserCurrentLease(request):
+    tenant = Tenant.objects.get(user__username=request.user)
+    l = Lease.objects.get(id=request.data['lease_id'])
+    print (l)
+    tenant.current_lease = l
+    tenant.save()
+    print (tenant.user.username)
+    return Response(status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def createChatMessage(request):
+    # l = Lease.objects.get(id=request.data['lease_id'])
+    l = get_lease(request.user)    
+    chat = ChatMessage(
+        lease=l,
+        message=request.data['message'],
+        poster=request.user
+    )
+    chat.save()
+    return Response(status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def createCard(request):
+    # l = Lease.objects.get(id=request.data['lease_id'])
+    l = get_lease(request.user)
+    c = Card(title=request.data['title'], lease=l)
+    c.save()
+    if request.data['type'] == 'announcement':
+        hc = HouseCard(basecard=c, poster=request.user)
+        hc.save()
+        a = Announcement(card=hc)
+        a.save()
+    elif request.data['type'] == 'payment':
+        uc = UserCard(basecard=c, poster=request.user, recipient=request.data['recipient'])
+        uc.save()
+        p = PaymentRequest(card=uc, amount=request.data['amount'])
+        p.save()
+    elif request.data['type'] == 'task':
+        hc = HouseCard(basecard=c, poster=request.user)
+        hc.save()
+        t = Task(card=hc, assignee=request.data['assignee'])
+        t.save()
+    elif request.data['type'] == 'event':
+        hc = HouseCard(basecard=c, poster=request.user)
+        hc.save()
+        e = Event(card=hc, eventdate=request.data['eventdate'], eventtime=request.data['eventtime'])
+        e.save()
+    elif request.data['type'] == 'vote':
+        hc = HouseCard(basecard=c, poster=request.user)
+        hc.save()
+        v = Vote(card=hc)
+        v.save()
+    # return feed(request)
+    return Response(status=status.HTTP_200_OK)
+
+# class AnnouncementViewSet(viewsets.ModelViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+#     def get_serializer_context(self):
+#         return {'user': self.request.user.username}
+
+    # @action(methods=['post'], detail=True, permission_classes=[permissions.IsAuthenticated])
+    # def like(self, request, card_id=None):
+    #     print (id)
+
+# class CardIdViewSet(viewsets.ModelViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+#     queryset = Card.objects.all()
+#     serializer_class = CardSerializer
+
+#     def get_serializer_context(self):
+#         return {'user': self.request.user.username}
+
+@login_required
+# @require_POST
+def postLike(request, card_id):
+    # if request.method == 'POST':
+    card = Card.objects.get(id=card_id)
+    hc = HouseCard.objects.get(basecard=card)
+    print (request.user)
+    hc.likes.add(request.user)
+    hc.save()
+    # print ("hello there")
+    return feed(request)
 
 @login_required
 def accountSettings(request):
@@ -160,6 +295,22 @@ def addHouse(request):
 def rentCalculation(request):
     form = RentCalculator(request.user)
     return render(request, 'rentcalculator.html', context={'form':form})
+
+@login_required
+def tasks(request):
+    # form = RentCalculator(request.user)
+    tenant = Tenant.objects.get(user__username=request.user)
+    lease = tenant.current_lease
+    tasks = Task.objects.filter(Q(card__basecard__lease=lease))
+    return render(request, 'tasks.html', context={'tasks':tasks})
+
+@login_required
+def calendar(request):
+    # form = RentCalculator(request.user)
+    tenant = Tenant.objects.get(user__username=request.user)
+    lease = tenant.current_lease
+    events = Event.objects.filter(Q(card__basecard__lease=lease))
+    return render(request, 'calendar.html', context={'events':events})
 
 @login_required
 def feed(request):

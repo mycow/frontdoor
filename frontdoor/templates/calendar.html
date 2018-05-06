@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block content %}
+    <p>This but in a calendar view?</p>
+    {% if events %}
+    {% for event in events %}
+    <!-- {% include "card.html" with card=card %} -->
+        <p>{{ event.card.poster }} {{ event.eventdate }}: {{ event.card.basecard.title }}</p>
+        <br/>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

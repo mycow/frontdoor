@@ -24,6 +24,10 @@ router.register(r'users', UserViewSet)
 router.register(r'announcements', views.AnnouncementViewSet)
 router.register(r'payments', views.PaymentRequestViewSet)
 router.register(r'cards', views.CardViewSet)
+router.register(r'chats', views.ChatMessageViewSet)
+router.register(r'leases', views.LeaseViewSet)
+# router.register(r'cardslike', view)
+# router.register(r'card/<int:card_id>/like', views.CardViewSet)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
@@ -35,7 +39,15 @@ urlpatterns = [
     path('house-settings/<int:house_id>/', views.houseIdSettings),
     path('add-house/', views.addHouse, name='add-house'),
     path('feed/', views.feed, name='feed'),
-    path('rent/', views.rentCalculation, name='rentcalculator'),
+    path('rent/', views.rentCalculation, name='rent'),
+    path('tasks/', views.tasks, name='tasks'),
+    path('calendar/', views.calendar, name='calendar'),
+    # path('api/card/<int:card_id>/like', views.postLike, name='post-like'),
+    path('cardlist/<int:card_id>/', views.card_list_view),
+    path('api/card/create/', views.createCard),
+    path('api/chat/create/', views.createChatMessage),
+    path('api/lease/change/', views.changeUserCurrentLease),
+    # path('api/card/new/', views.card_list_view),
     # path('cards/', views.cards, name='cards'),
     # path('post_announcement/', views.post_announcement, name='post_announcement'),
     # path('maketestdata/', views.testdata, name='maketestdata'),

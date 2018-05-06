@@ -18,14 +18,14 @@ def get_houses(request):
     return account.leases.all()
 
 def get_cards(request):
-    user1 = User.objects.filter(username='evl')
-    print(user1)
+    # user1 = User.objects.filter(username='evl')
+    # print(user1)
 
     tenant = Tenant.objects.get(user__username=request.user)
     lease = tenant.current_lease
     announcements = Announcement.objects.filter(Q(card__basecard__lease=lease))
-    print(announcements)
-    print(request.user)
+    # print(announcements)
+    # print(request.user)
     for card in announcements:
         card.type = 'announcement'
         # test serializing
@@ -39,23 +39,23 @@ def get_cards(request):
     for card in payments:
         card.type = 'payment'
 
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(Q(card__basecard__lease=lease))
     for card in tasks:
         card.type = 'task'
 
-    setups = Setup.objects.all()
+    setups = Setup.objects.filter(Q(card__recipient__username=request.user) | Q(card__poster__username=request.user))
     for card in setups:
         card.type = 'setup'
 
-    subleases = SubleaseRequest.objects.all()
+    subleases = SubleaseRequest.objects.filter(Q(card__recipient__username=request.user) | Q(card__poster__username=request.user))
     for card in subleases:
         card.type = 'sublease request'
 
-    events = Event.objects.all()
+    events = Event.objects.filter(Q(card__basecard__lease=lease))
     for card in events:
         card.type = 'event'
 
-    votes = Vote.objects.all()
+    votes = Vote.objects.filter(Q(card__basecard__lease=lease))
     for card in votes:
         card.type = 'vote'
 

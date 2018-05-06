@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+    {% if tasks %}
+    {% for task in tasks %}
+    <!-- {% include "card.html" with card=card %} -->
+        <p>{{ task.card.poster }} -> {{ task.assignee }}: {{ task.card.basecard.title }}</p>
+        <br/>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

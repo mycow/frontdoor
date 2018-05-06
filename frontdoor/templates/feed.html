@@ -52,7 +52,8 @@
           <ul class="sidebar-nav">
             {% if user.is_authenticated %}
               <li><a class="navbtn active" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/cottage.png"> Home</span></a></li>
-              <li><a class="navbtn" href=""><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Rent Calculator</a></li>
+              <li><a class="navbtn" href="{% url 'rent' %}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Rent Calculator</a></li>
+              <li><a class="navbtn" href="{% url 'tasks' %}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Tasks</a></li>
             {% else %}
               <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
             {% endif %} 
