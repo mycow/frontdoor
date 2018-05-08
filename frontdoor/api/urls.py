@@ -27,6 +27,7 @@ router.register(r'cards', views.CardViewSet)
 router.register(r'chats', views.ChatMessageViewSet)
 router.register(r'leases', views.LeaseViewSet)
 router.register(r'lease/users', views.LeaseUserViewSet)
+router.register(r'rooms', views.LeaseRoomViewSet)
 # router.register(r'cardslike', view)
 # router.register(r'card/<int:card_id>/like', views.CardViewSet)
 
@@ -48,6 +49,7 @@ urlpatterns = [
     path('api/card/create/', views.createCard),
     path('api/chat/create/', views.createChatMessage),
     path('api/lease/change/', views.changeUserCurrentLease),
+    path('api/rent', views.calculateRent),
     # path('api/card/new/', views.card_list_view),
     # path('cards/', views.cards, name='cards'),
     # path('post_announcement/', views.post_announcement, name='post_announcement'),

@@ -44,7 +44,7 @@ all users in a lease
 is_self=true
 
 @GET
-/api/lease/rooms/
+/api/rooms/
 rooms
 
 @POST

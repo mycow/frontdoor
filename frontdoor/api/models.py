@@ -23,7 +23,7 @@ class Lease(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     includecommonarea = models.BooleanField(default=True)
-    rentscalefactor = models.IntegerField(null=True)
+    rentscalefactor = models.FloatField(null=True)
     rent = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
 class Account(models.Model):
@@ -102,7 +102,7 @@ class ChatMessage(models.Model):
 class Room(models.Model):
     lease = models.ForeignKey(Lease, on_delete=models.CASCADE, null=True)
     users = models.ManyToManyField(User, related_name='roomtenants')
-    num_users_if_no_users = models.IntegerField(null=True)
+    num_users = models.IntegerField(null=True)
     rent = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     squarefeet = models.IntegerField(null=True)
     name = models.TextField()

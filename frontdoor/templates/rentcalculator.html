@@ -3,15 +3,24 @@
 {% block title %}Rent{% endblock %}
 
 {% block content %}
-    <form>
+    {% if rooms %}
+    {% for room in rooms %}
+    <p><b>{{ room.name }}</b> {{ room.rent }} x{{ room.num_users }}</p>
+    <p>sqft: {{ room.squarefeet }}</p>
+    <p>{% if room.hasbathroom %}Bathroom{% endif %}</p>
+    <p>{% if room.hasawkwardlayout %}Awkward Layout{% endif %}</p>
+    <p>{% if room.hascloset %}Closet{% endif %}</p>
+    {% endfor %}
+    {% endif %}
+    <form action="/rent/" method="post">
         {% csrf_token %}
         {{ add_form }}
-        <input type="submit" value="Submit" name="add_btn"/>
+        <input type="submit" value="Add" name="add_btn"/>
     </form>
-    <form>
+    <form action="/rent/" method="post">
         {% csrf_token %}
         {{ cal_form }}
-        <input type="submit" value="Submit" name="cal_btn"/>
+        <input type="submit" value="Calculate" name="cal_btn"/>
         <!-- <button type="submit">Calculate</button> -->
     </form>
 {% endblock %}

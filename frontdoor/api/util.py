@@ -12,6 +12,21 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+def roundbase(x, base=5):
+    return int(base * round(float(x)/base))
+
+def calculate_rent_for_room(totalrent, rentscalefactor, sqft, totalsqft, roomcount, personcountroom, personcounthouse, multiplier):
+    # print (str(totalrent)+" "+str(rentscalefactor)+" "+str(sqft)+" "+str(totalsqft)+" "+str(roomcount)+" "+str(personcountroom)+" "+str(personcounthouse))
+    roomprice = float(totalrent)*float(1-rentscalefactor)*float(sqft)/(totalsqft/roomcount)/roomcount/personcountroom*float(multiplier)
+    commonprice = float(totalrent)*float(rentscalefactor)/personcounthouse
+    return roomprice + commonprice
+
+def get_rooms(request):
+    lease = get_lease(request.user)
+    rooms = Room.objects.filter(lease=lease)
+
+    return rooms
+
 def get_houses(request):
     account = Account.objects.get(user__id=request.user.id)
     # print (account.leases.all())

@@ -57,7 +57,7 @@ class RentCalculator(forms.Form):
     # num_tenants = forms.IntegerField(label='Number of Tenants')
     total_rent = forms.IntegerField(label='Total Rent')
     include_common_space = forms.BooleanField()
-    common_space_importance = forms.IntegerField()
+    common_space_importance = forms.FloatField()
 
     def __init__(self, user, *args, **kwargs):
         super(RentCalculator, self).__init__(*args, **kwargs)
@@ -66,6 +66,9 @@ class AddRoomForm(forms.Form):
     room_name = forms.CharField()
     square_footage = forms.IntegerField()
     number_of_residents = forms.IntegerField()
+    has_bathroom = forms.BooleanField(required=False)
+    has_awkward_layout = forms.BooleanField(required=False)
+    has_closet = forms.BooleanField(required=False)
 
     def __init__(self, user, *args, **kwargs):
         super(AddRoomForm, self).__init__(*args, **kwargs)

@@ -3,6 +3,12 @@ from rest_framework import serializers, routers, viewsets
 
 from .models import *
 
+class LeaseRoomSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Room
+        fields = ('num_users', 'rent', 'squarefeet', 'name', 'hasbathroom', 'hasawkwardlayout', 'hascloset')
+
 class LeaseUserSerializer(serializers.ModelSerializer):
     is_self = serializers.SerializerMethodField()
 
@@ -90,7 +96,7 @@ class CardSerializer(serializers.ModelSerializer):
         fields = ('id', 'date', 'title', 'house', 'content')
 
     def create(self, valudated_data):
-        print (valudated_data)
+        # print (valudated_data)
         card = Card.objects.create(**valudated_data)
         return card
 
@@ -177,12 +183,16 @@ class EventSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     owner = serializers.SerializerMethodField()
+    assignee = serializers.SerializerMethodField()
 
     def get_type(self, obj):
         return 'task'
 
     def get_owner(self, obj):
         return HouseCard.objects.get(id=obj.card.id).poster.username
+
+    def get_assignee(self, obj):
+        return obj.assignee.username
 
     class Meta:
         model = Task

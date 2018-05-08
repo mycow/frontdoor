@@ -8,6 +8,10 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
+from django.db.models import Sum
+
+from math import floor, ceil
+from decimal import *
 
 from .serializers import *
 from .models import *
@@ -16,6 +20,20 @@ from .forms import *
 
 def index(request):
     return render(request, 'index.html', context={})
+
+class LeaseRoomViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = LeaseRoomSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        # leases = Account.objects.get(user=self.request.user).leases
+        # return Lease.objects.filter(id__in=leases)
+        currentlease = Tenant.objects.get(user=self.request.user).current_lease
+        return Room.objects.filter(lease=currentlease)
 
 class LeaseUserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -30,7 +48,6 @@ class LeaseUserViewSet(viewsets.ModelViewSet):
         # return Lease.objects.filter(id__in=leases)
         currentlease = Tenant.objects.get(user=self.request.user).current_lease
         return User.objects.filter(account__leases__in=[currentlease])
-
 
 class LeaseViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -78,8 +95,13 @@ class CardViewSet(viewsets.ModelViewSet):
     #     print (id)
 
 @api_view(['POST'])
+def calculateRent(request):
+
+    return feed(request)
+
+@api_view(['POST'])
 def card_list_view(request, card_id):
-    print(request.data['title'])
+    # print(request.data['title'])
     # cards = Card.objects.all()
     # serializer = CardSerializer(cards)
     # return Response(serializer.data)
@@ -97,15 +119,15 @@ def card_list_view(request, card_id):
 def changeUserCurrentLease(request):
     tenant = Tenant.objects.get(user__username=request.user)
     l = Lease.objects.get(id=request.data['lease_id'])
-    print (l)
+    # print (l)
     tenant.current_lease = l
     tenant.save()
-    print (tenant.user.username)
+    # print (tenant.user.username)
     return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def createChatMessage(request):
-    print (request.data)
+    # print (request.data)
     # l = Lease.objects.get(id=request.data['lease_id'])
     l = get_lease(request.user)
     chat = ChatMessage(
@@ -136,7 +158,8 @@ def createCard(request):
     elif request.data['type'] == 'task':
         hc = HouseCard(basecard=c, poster=request.user)
         hc.save()
-        t = Task(card=hc, assignee=request.data['assignee'])
+        assignee = User.objects.get(username=request.data['assignee'])
+        t = Task(card=hc, assignee=assignee)
         t.save()
     elif request.data['type'] == 'event':
         hc = HouseCard(basecard=c, poster=request.user)
@@ -177,7 +200,7 @@ def postLike(request, card_id):
     # if request.method == 'POST':
     card = Card.objects.get(id=card_id)
     hc = HouseCard.objects.get(basecard=card)
-    print (request.user)
+    # print (request.user)
     hc.likes.add(request.user)
     hc.save()
     # print ("hello there")
@@ -185,12 +208,12 @@ def postLike(request, card_id):
 
 @login_required
 def accountSettings(request):
-    print (request.method)
+    # print (request.method)
     if request.method == 'POST':
         # print ("here?")
         form = AccountSettingsForm(request.user, request.POST)
         if form.is_valid():
-            print ("here")
+            # print ("here")
             # form.save()
             account_type = form.cleaned_data.get('account_type')
             # raw_password = form.cleaned_data.get('password1')
@@ -218,7 +241,7 @@ def accountSettings(request):
             return redirect('/house-settings/')
     # else:
     #     form = AccountSettingsForm(request.user)
-    print("no here")
+    # print("no here")
     form = AccountSettingsForm(request.user)
     return render(request, 'settings.html', context={'form':form})
 
@@ -310,20 +333,108 @@ def addHouse(request):
 
 @login_required
 def rentCalculation(request):
+    initial = {'include_common_space':True}
+    l = Lease.objects.get(id=get_lease(request.user).id)
+    if l.rentscalefactor:
+        initial['common_space_importance'] = l.rentscalefactor
+    if l.rent:
+        initial['total_rent'] = l.rent
     if request.method == 'POST':
         if 'cal_btn' in request.POST:
-            cal_form = RentCalculator(request.user, request.POST)
+            cal_form = RentCalculator(request.user, request.POST, initial=initial)
             if cal_form.is_valid():
-                print ("here")
+                l.rent = cal_form.cleaned_data['total_rent']
+                l.includecommonarea = cal_form.cleaned_data['include_common_space']
+                l.rentscalefactor = cal_form.cleaned_data['common_space_importance']
+                l.save()
+                rooms = Room.objects.filter(lease=l)
+                # print (rooms.count())
+                totalsqft = rooms.aggregate(Sum('squarefeet'))['squarefeet__sum']
+                personcounthouse = rooms.aggregate(Sum('num_users'))['num_users__sum']
+                # print (totalsqft)
+                change = 0
+                for room in rooms:
+                    rent = calculate_rent_for_room(
+                        l.rent,
+                        l.rentscalefactor,
+                        room.squarefeet,
+                        totalsqft,
+                        rooms.count(),
+                        room.num_users,
+                        personcounthouse,
+                        (1+.05*room.hasbathroom+.05*room.hascloset-.05*room.hasawkwardlayout)
+                    )
+                    flooredrent = 5*floor(rent/5)
+                    change += rent-flooredrent
+                    room.rent = flooredrent
+                    room.save()
+                change = 5*ceil(change/5)
+                sortedrooms = sorted(rooms, key=attrgetter('rent'))
+                for room in sortedrooms:
+                    # print (str(change)+" "+str(room.num_users))
+                    if change >= 5*room.num_users:
+                        room.rent = room.rent + 5
+                        change -= 5*room.num_users
+                        room.save()
+
         elif 'add_btn' in request.POST:
             add_form = AddRoomForm(request.user, request.POST)
             if add_form.is_valid():
-                l = Lease.objects.get(id=get_lease(request.user))
-                # room = Room(lease=l, name=add_form.cleaned_data['room_name'], )
+                # l = Lease.objects.get(id=get_lease(request.user).id)
+                r = Room(
+                    name=add_form.cleaned_data['room_name'],
+                    squarefeet=add_form.cleaned_data['square_footage'],
+                    lease=l,
+                    num_users=add_form.cleaned_data['number_of_residents'],
+                    hasbathroom=add_form.cleaned_data['has_bathroom'],
+                    hasawkwardlayout=add_form.cleaned_data['has_awkward_layout'],
+                    hascloset=add_form.cleaned_data['has_closet']
+                )
+                r.save()
+                if l.rent:
+                    rooms = Room.objects.filter(lease=l)
+                    totalsqft = rooms.aggregate(Sum('squarefeet'))['squarefeet__sum']
+                    personcounthouse = rooms.aggregate(Sum('num_users'))['num_users__sum']
+                    change = 0
+                    for room in rooms:
+                        rent = calculate_rent_for_room(
+                            l.rent,
+                            l.rentscalefactor,
+                            room.squarefeet,
+                            totalsqft,
+                            rooms.count(),
+                            room.num_users,
+                            personcounthouse,
+                            (1+.05*room.hasbathroom+.05*room.hascloset-.05*room.hasawkwardlayout)
+                        )
+                        flooredrent = 5*floor(rent/5)
+                        change += rent-flooredrent
+                        room.rent = flooredrent
+                        room.save()
+                    change = 5*ceil(change/5)
+                    sortedrooms = sorted(rooms, key=attrgetter('rent'))
+                    for room in sortedrooms:
+                        # print (str(change)+" "+str(room.num_users))
+                        if change >= 5*room.num_users:
+                            room.rent = room.rent + 5
+                            change -= 5*room.num_users
+                            room.save()
+
+    initial = {'include_common_space':True}
+    l = Lease.objects.get(id=get_lease(request.user).id)
+    if l.rentscalefactor:
+        initial['common_space_importance'] = l.rentscalefactor
+    if l.rent:
+        initial['total_rent'] = l.rent
     
+    rooms = get_rooms(request)
     add_form = AddRoomForm(request.user)
-    cal_form = RentCalculator(request.user)
-    return render(request, 'rentcalculator.html', context={'cal_form':cal_form, 'add_form':add_form})
+    cal_form = RentCalculator(request.user, initial=initial)
+    return render(request, 'rentcalculator.html', context={
+        'rooms':rooms,
+        'cal_form':cal_form,
+        'add_form':add_form
+    })
 
 @login_required
 def tasks(request):
