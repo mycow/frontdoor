@@ -1,13 +1,20 @@
 {% extends 'base_generic.html' %}
-
-{% block title %}Settings{% endblock %}
-
+{% load bootstrap3 %}
 {% block content %}
-    <form action="/account-settings/" method="post">
-        <p>Are you a landlord or a tenant?</p>
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" name="btn"/>
-        <!-- <button type="submit">Calculate</button> -->
-    </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Settings</title>{% endblock %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/settings.css' %}">
+  <script type="text/javascript" src="{% static 'js/settings.js' %}"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div id="formcont">
+		    
+		</div>
+	</div>
+</body>
 {% endblock %}
+</html>

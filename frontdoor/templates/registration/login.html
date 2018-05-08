@@ -1,6 +1,5 @@
-{% extends "base_generic.html" %}
+{% extends 'base_generic.html' %}
 {% load bootstrap3 %}
-{% load static from staticfiles %}
 
 {% block sidebar %}{% endblock %}
 
@@ -9,56 +8,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% block title %}<title>Login</title>{% endblock %}
+  {% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/loginStyle.css' %}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-{% block title %}<title>Login</title>{% endblock %}
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/feed.js' %}"></script>
 </head>
-  <body class=".body-bg" style="background: url('{% static 'images/frontdoor.jpg' %}')">
+<body>
+  <div class="topbar">
+    <a href="{% url 'login' %}"><h1 class="toptitle">Frontdoor</h1></a>
+  </div>
+  <br/><br/>
+  <div class="loginblock">
     <div class="header">
       <h2>Login</h2>
     </div>
 
+    {% if form.errors %}
+      <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
 
-  {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-
-  {% if next %}
-      {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-      {% else %}
-      <p>Please login to see this page.</p>
-      {% endif %}
-  {% endif %}
-
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <div id="login">
-      {% bootstrap_form form %}
-    <div>
-    <!-- <div>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </div>
-    <div>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </div> -->
-    <div>
-      <input class="btn btn-primary" type="submit" value="Login" />
-      <input type="hidden" name="next" value="{{ next }}" />
-    </div>
-  </form>
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-  <p><a href="{% url 'signup' %}">Register</a></p>
-
-  {% endblock %}
-  </body>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div id="login">
+        {% bootstrap_form form %}
+      </div>
+      <div>
+        <input class="btn btn-primary" type="submit" value="Login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
+      <br>
+      {# Assumes you setup the password_reset view in your URLconf #}
+      <p id="links"><a href="{% url 'password_reset' %}">Lost password?</a> &bull; <a href="{% url 'signup' %}">Not a Member?</a></p>
+    </form>
+  </div>
+{% endblock %}
+</body>
 </html>

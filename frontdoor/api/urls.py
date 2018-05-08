@@ -36,6 +36,7 @@ urlpatterns = [
     path('add-house/', views.addHouse, name='add-house'),
     path('feed/', views.feed, name='feed'),
     path('rent/', views.rentCalculation, name='rentcalculator'),
+    path('settings/', views.settings, name='settings'),
     # path('cards/', views.cards, name='cards'),
     # path('post_announcement/', views.post_announcement, name='post_announcement'),
     # path('maketestdata/', views.testdata, name='maketestdata'),

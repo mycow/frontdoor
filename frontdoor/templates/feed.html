@@ -6,9 +6,6 @@
 <head>
   {% block title %}<title>Feed</title>{% endblock %}
   {% load static %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/feedStyle.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -17,53 +14,12 @@
   <script type="text/javascript" src="{% static 'js/feed.js' %}"></script>
 </head>
 <body>
-  <div class="topbar">
-    <div class="profileicon">
-      <img class="profilepic" src="{% static 'images/defaultusericon.png' %}">
-    </div>
-    <!---<div class="dropdown welcometext">
-      <button class="dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><h4>{{ user.get_username }}</h4></button>
-      <ul class="dropdown-menu" roll="menu" aria-labelledby="menu1">
-        <li role="presentation"><a role="dropdown-item" tabindex="-1" data-target="#">shit</a></li>
-      </ul>
-    </div>-->
-    <div class="dropdown welcometext">
-      <button class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><h4>{{ user.get_username }}</h4></button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href=""><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/settings.png"> Settings</a></li> 
-        <hr class="navdiv">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'logout'%}?next={{request.path}}"><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/shutdown.png"> Logout</a></li>  
-      </ul>
-    </div>
-    <div class="searches">
-      <form type="get" action="post" style="margin: 0">
-        <input  id="search_box" type="text" name="search_box"  placeholder="Search" >
-        <button id="search_submit" type="submit" class="glyphicon glyphicon-search"></button>
-      </form>
-    </div>
-  </div>
   <div class="container-fluid">
     <div class="row content">
-
-      <!--Navigation-->
-      {% block sidebar %}<!-- insert default navigation text for every page -->
-      <div class="col-sm-2 sidenav">
-        <br/>
-          <ul class="sidebar-nav">
-            {% if user.is_authenticated %}
-              <li><a class="navbtn active" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/cottage.png"> Home</span></a></li>
-              <li><a class="navbtn" href=""><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Rent Calculator</a></li>
-            {% else %}
-              <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
-            {% endif %} 
-          </ul>
-      </div>
-      {% endblock %}
-
       <!--Action Card-->
       <div class="col-sm-8 cardFeed">
         <div class="card text-center">
-          <div class="card-header">
+          <div id="tabs" class="card-header">
             <ul class="nav nav-tabs nav-justified card-header-tabs" id="actionCard">
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="annTab" href="#announcement" role="tab">Announcement</a>
@@ -86,15 +42,16 @@
 
           <div class="card-block tab-content">
             <div class="tab-pane fade in active" id="default" role="tabpanel">
-              <h1 class="actionTitle">Welcome to Frontdoor</h1>
+              <h1 class="actionTitle">Create a New Post</h1>
             </div>
             <div class="tab-pane fade" id="announcement" role="tabpanel">
               <form action="/feed/" method="post">
                   {% csrf_token %}
-                  <table class="center">
+                  <table>
                     {{ ann_form }}
                   </table>
-                  <input class="btn btn-default" type="submit" value="Post" name="ann_btn"/>
+                    <br>
+                  <input class="btn btn-primary" type="submit" value="Post" name="ann_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="payment" role="tabpanel">
@@ -103,7 +60,8 @@
                   <table>
                     {{ prq_form }}
                   </table>
-                  <input class="btn btn-default" type="submit" value="Post" name="prq_btn"/>
+                  <br>
+                  <input class="btn btn-primary" type="submit" value="Post" name="prq_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="task" role="tabpanel">
@@ -112,7 +70,8 @@
                   <table class="center">
                     {{ tsk_form }}
                   </table>
-                  <input class="btn btn-default" type="submit" value="Post" name="tsk_btn"/>
+                  <br>
+                  <input class="btn btn-primary" type="submit" value="Post" name="tsk_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="event" role="tabpanel">
@@ -121,7 +80,8 @@
                   <table class="center">
                     {{ evt_form }}
                   </table>
-                  <input class="btn btn-default" type="submit" value="Post" name="evt_btn"/>
+                  <br>
+                  <input class="btn btn-primary" type="submit" value="Post" name="evt_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="vote" role="tabpanel">
@@ -130,25 +90,32 @@
                   <table class="center">
                     {{ vte_form }}
                   </table>
-                  <input class="btn btn-default" type="submit" value="Post" name="vte_btn"/>
+                  <br>
+                  <input class="btn btn-primary" type="submit" value="Post" name="vte_btn"/>
               </form>
             </div>
           </div>
+
+          </div>
+          <hr class="actionDiv">
+
+          <!--Feed Start-->
+
+          {% if cards %}
+          {% for card in cards %}
+          {% include "card.html" with card=card %}
+          {% endfor %}
+          {% endif %}
+      </div>
+      <div class="col-sm-3 utilityFeed">
+        <div class="utilitycard">
+          <!--<h1 class="utilityplaceholder">Nothing Here</h1>-->
+          <p>Current House: Courtside</p>
+          <p>Address: </p>
+          <p>Landlord: Ya mom</p>
+          <p>Lease Starts: Today</p>
+          <p>Lease Ends: Tomorrow</p>
         </div>
-        <hr class="actionDiv">
-
-        <!--Feed Start-->
-
-        {% if cards %}
-        {% for card in cards %}
-        {% include "card.html" with card=card %}
-        <br/>
-        {% endfor %}
-        {% endif %}
-    </div>
-    <div class="col-sm-3 utilityFeed">
-      <div class="utilitycard">
-        <h1 class="utilityplaceholder">Nothing Here</h1>
       </div>
     </div>
   </div>

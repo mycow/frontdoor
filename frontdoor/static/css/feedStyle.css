@@ -1,207 +1,47 @@
-h1{font-family: "Trebuchet MS", Helvetica, sans-serif;}
-
-h3{font-family: "Trebuchet MS", Helvetica, sans-serif;}
-
-body {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  background-color: #D3D3D3;
-}
-
-/* Set black background color, white text and some padding */
-footer {
-  background-color: #555;
-  color: white;
-  padding: 15px;
-}
-    
-/* On small screens, set height to 'auto' for sidenav and grid */
-@media screen and (max-width: 767px) {
-  .sidenav {
-    height: auto;
-    padding: 15px;
-  }
-  
-  .row.content {height: auto;} 
-}
-
-/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-.row.content {height: 1500px;}
-    
-/* Styling for topbar items */
-.topbar {
-  position: fixed;
-  height: 43px;
-  width: 100%;
-  background-color: #57A759;
-  overflow: visible;
-  margin-bottom: 15px;
-  z-index: 2;
-}
-
-.welcometext {
-  float: right;
-}
-
-.searches {
-  margin-top: 8px;
-  margin-left: 150px;
-  border: none;
-  width: 500px;
-}
-
-#search_box {
-  border-radius: 3px 0 0 3px;
-  width: 400px;
-  height: 25px;
-  border: none;
-  padding-left: 10px;
-}
-
-#search_box::placeholder {
-  color: #D3D3D3;
-  font-weight: 100;
-}
-
-#search_submit {
-  height: 25px;
-  width: 50px;
-  margin-left: -4.1px;
-  margin-top: -100px;
-  z-index: 10;
-  border-radius: 0 3px 3px 0;
-  border: none;
-}
-
-.profileicon {
-  height: 30px;
-  width: 30px;
-  background-color: white;
-  border-radius: 50%;
-  float: right;
-  margin-top: 5px;
-  margin-right: 20px;
-  position: relative;
-}
-
-.profilepic {
-  max-height: 50%;
-  max-width: 50%;
-  margin: 8px;
-}
-
-.dropdown-menu {
-  z-index: 999;
-  position: relative;
-  top: 40px;
-  left: 60px;
-  border-radius: 0 0 0 5px;
-  background-color: #EFEFF4;
-}
-
-.dropdown-toggle {
-  background-color: transparent;
-  border: none;
-}
-
-btn-primary {
-  background-color: transparent;
-}
-
-.dropdown-icon {
-  max-width: 15%;
-  max-height: 15%;
-  margin-bottom: 2.5px;
-}
-
-hr.navdiv {
-  border: 0; 
-  height: 1px; 
-  width: 100%;
-  margin: 0;
-  background-color: black;
-}
-
-/* End topbar styling */
-
-/* Styling for sidenav items */
-.sidenav {
-  height: 100%;
-  width: 17%;
-  padding: 20px;
-  margin-left: 85px;
-  margin-top: 15px;
-  position: fixed;
-  top: 0;
-}
-
-ul.sidebar-nav {
-  list-style-type: none;
-  margin: 3px;
-  padding: 0;
-  width: 12.8%;
-  height: 100%;
-  position: fixed;
-  overflow: auto;
-}
-
-li a.navbtn {
-  display: block;
-  color: #3D5E27;
-  padding: 3px 10px;
-  text-decoration: none;
-}
-
-li a.navbtn.active {
-  font-weight: bolder;
-  color: #3D5E27;
-  background-color: #EFEFF4;
-  border-radius: 5px 5px 5px 5px;
-}
-
-.navlink {
-  overflow: auto;
-}
-
-.sideicon {
-  max-width: 25px;
-  max-height: 25px;
-  padding-left: 0;
-}
-/* End sidenav styling*/
-
-
 /* Stylings for cards and action div */
-.card .text-center {
-  width: 100%;
-  height: 100%;
-}
-
 hr.actionDiv { 
   border: 0; 
   height: 1px; 
-  width: 50%;
   background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
   background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
   background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
   background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
 }
 
+.actionTitle {
+  color: #d3d3d3;
+}
+
 .cardFeed {
-  left: 140px;
   padding-top: 57px;
   margin: 0;
-  width: 60%;
+  width: 37%;
 }
 
 /* Base card styling */
 .card {
-  width: 62%;
   padding: 15px;
-  margin: 0px auto;
+  margin: 15px;
   border: 0.5px solid grey;
-  border-radius: 4px 4px 4px 4px;
+  border-radius: 3px 3px 3px 3px;
   background-color: #EFEFF4;
   white-space: normal;
+}
+
+.cardimg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 25px;
+  margin-left: -2px;
+  margin-right: 6px;
+}
+
+.cardhead {
+  max-height: 50px;
+}
+
+#title {
+  display: inline;
 }
 
 /* In-card element styling */
@@ -212,13 +52,26 @@ hr.actionDiv {
   font-family: -apple-system-short-footnote, BlinkMacSystemFont, sans-serif;
 }
 
+.collapse {
+  width: 100%;
+}
+
+.collapse form {
+  bottom: 0;
+}
+
+#comments {
+  color: #8290A0;
+  padding-left: 0px;
+}
+
 /* End of card styling */
 
 .utilityFeed {
-  padding-top: 57px;
-  text-align: center;
+  padding-top: 71.5px;
   width: 33%;
   height: 30%;
+  text-align: center;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -233,4 +86,53 @@ hr.actionDiv {
 .utilityplaceholder {
   text-align: center;
   color: #d3d3d3;
+}
+
+.btn-primary {
+  background-color: #3d1a47;
+  border-color: #3d1a47;
+  width: 100%;
+}
+
+a.nav-link {
+  color: #3D5E27;
+}
+
+table {
+  width: 90%;
+}
+
+th {
+  float: left;
+}
+
+tr {
+  margin: 5px;
+}
+
+label {
+  text-align: left;
+  color: #3D5E27;
+  width: 100%;
+}
+
+select {
+  float: left;
+}
+
+hr {
+  margin: 5px;
+}
+
+input#id_title {
+  width: 90%;
+}
+
+input#id_amount {
+  width: 90%;
+}
+
+td {
+  width: 100%;
+  text-align: left;
 }

@@ -65,14 +65,17 @@ class SignUpForm(UserCreationForm):
         ('T', 'Tenant'),
         ('L', 'Landlord'),
     )
-    first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
-    last_name = forms.CharField(max_length=30, required=True, help_text='Required.')
-    email = forms.EmailField(max_length=254, help_text='Required.')
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required.', widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required.', widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
+    email = forms.EmailField(max_length=254, help_text='Required.', widget=forms.TextInput(attrs={'placeholder': 'example@frontdoor.com'}))
     user_type = forms.ChoiceField(choices=TYPE_CHOICES, help_text='Are you a Tenant or Landlord?')
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'user_type', )
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username'})
+        }
 
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)

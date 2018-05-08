@@ -2,18 +2,74 @@
 <html lang="en">
 <head>
   {% block title %}<title>Frontdoor</title>{% endblock %}
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bgStyle.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
   {% block sidebar %}<!-- insert default navigation text for every page -->
-    <ul class="sidebar-nav">
-      {% if user.is_authenticated %}
-        <li>User: {{ user.get_username }}</li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-      {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-      {% endif %} 
-    </ul>
+    {% load static %}
+    <div class="topbar">
+      <div class="profileicon">
+        <img class="profilepic" src="{% static 'images/defaultusericon.png' %}">
+      </div>
+
+      <div class="dropdown welcometext">
+        <button class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><h4>{{ user.get_username }}</h4></button>
+        <ul class="dropdown-menu top" role="menu" aria-labelledby="menu1">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'settings' %}?next={{request.path}}"><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/settings.png"> Settings</a></li> 
+          <hr class="navdiv">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'logout'%}?next={{request.path}}"><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/shutdown.png"> Logout</a></li>  
+        </ul>
+      </div>
+      <div class="searches">
+        <form type="get" action="post" style="margin: 0">
+          <input  id="search_box" type="text" name="search_box"  placeholder="Search" >
+          <button id="search_submit" type="submit" class="glyphicon glyphicon-search"></button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <ul class="sidebar-nav home">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><h3 class="housename">House Name <img class="sideicon" src="https://png.icons8.com/color/40/000000/expand-arrow.png"></h3></button>
+          <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another House</a></li> 
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>  
+          </ul>
+        </div>
+        {% if user.is_authenticated %}
+          <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>
+          <li><a class="navbtn rent" href="{% url 'rentcalculator' %}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Rent Calculator</a></li>
+          <li><a class="navbtn lease" href="#"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/land-sales.png"></span> Leasing Bulletin</a></li>
+          <li><a class="navbtn chat" href="#"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/moved-topic.png"></span> Chat</a></li>
+        {% else %}
+          <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
+        {% endif %} 
+      </ul>
+      <ul class="sidebar-nav settings">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><h3 class="housename">House Name <img class="sideicon" src="https://png.icons8.com/color/40/000000/expand-arrow.png"></h3></button>
+          <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another House</a></li> 
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>  
+          </ul>
+        </div>
+        {% if user.is_authenticated %}
+          <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>
+          <li><a class="navbtn accountset active" href="#account"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/gender-neutral-user.png"></span> Account Settings</a></li>
+          <li><a class="navbtn homeset" href="#house"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/cottage.png"> House Settings</span></a></li>
+        {% else %}
+          <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
+        {% endif %} 
+      </ul>
+    </div>
   {% endblock %}
   {% block content %}<!-- default content text (typically empty) -->{% endblock %}
 </body>

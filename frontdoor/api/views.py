@@ -32,6 +32,10 @@ class CardViewSet(viewsets.ModelViewSet):
         return {'user': self.request.user.username}
 
 @login_required
+def settings(request):
+    return render(request, 'settings.html', context={})
+
+@login_required
 def accountSettings(request):
     print (request.method)
     if request.method == 'POST':
@@ -68,7 +72,7 @@ def accountSettings(request):
     #     form = AccountSettingsForm(request.user)
     print("no here")
     form = AccountSettingsForm(request.user)
-    return render(request, 'settings.html', context={'form':form})
+    return render(request, 'account-settings.html', context={'form':form})
 
 @login_required
 def houseIdSettings(request, house_id):

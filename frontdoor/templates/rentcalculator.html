@@ -1,12 +1,35 @@
 {% extends 'base_generic.html' %}
-
-{% block title %}Rent{% endblock %}
-
+{% load bootstrap3 %}
 {% block content %}
-    <form>
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" name="prq_btn"/>
-        <!-- <button type="submit">Calculate</button> -->
-    </form>
+<!DOCTYPE html>
+<html>
+<head>
+  {% block title %}<title>Rent Calculator</title>{% endblock %}
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/rent.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/rent.js' %}"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<h2>Split the Rent!</h2>
+		</div>
+		<div class="formcont">
+		    <form class="main">
+		        {% csrf_token %}
+		        {{ form }}
+		        <br><br>
+		        <input class="btn btn-primary" type="submit" value="Submit" name="prq_btn"/>
+		        <!-- <button type="submit">Calculate</button> -->
+		    </form>
+		</div>
+	</div>
+</body>
 {% endblock %}
+</html>
