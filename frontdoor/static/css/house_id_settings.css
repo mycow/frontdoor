@@ -1,0 +1,13 @@
+#setForm {
+	width: 300px;
+	background-color: #EFEFF4;
+	border: 0.5px solid grey;
+	border-radius: 0px 0px 3px 3px;
+	transform: translate(0%, 150%);
+	padding: 10px;
+	margin: auto;
+}
+
+.invitecode {
+
+}
