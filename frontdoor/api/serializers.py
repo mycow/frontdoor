@@ -3,6 +3,16 @@ from rest_framework import serializers, routers, viewsets
 
 from .models import *
 
+class LeaseUserSerializer(serializers.ModelSerializer):
+    is_self = serializers.SerializerMethodField()
+
+    def get_is_self(self, obj):
+        return obj.username == self.context['user']
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'is_self')
+
 class LeaseSerializer(serializers.ModelSerializer):
     house_name = serializers.SerializerMethodField()
     landlord = serializers.SerializerMethodField()
@@ -24,6 +34,10 @@ class LeaseSerializer(serializers.ModelSerializer):
 
 class ChatMessageSerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField()
+    poster = serializers.SerializerMethodField()
+
+    def get_poster(self, obj):
+        return obj.poster.username
 
     def get_likes(self, obj):
         return obj.likes.count()

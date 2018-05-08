@@ -17,6 +17,21 @@ from .forms import *
 def index(request):
     return render(request, 'index.html', context={})
 
+class LeaseUserViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = LeaseUserSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        # leases = Account.objects.get(user=self.request.user).leases
+        # return Lease.objects.filter(id__in=leases)
+        currentlease = Tenant.objects.get(user=self.request.user).current_lease
+        return User.objects.filter(account__leases__in=[currentlease])
+
+
 class LeaseViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Lease.objects.all()
@@ -90,8 +105,9 @@ def changeUserCurrentLease(request):
 
 @api_view(['POST'])
 def createChatMessage(request):
+    print (request.data)
     # l = Lease.objects.get(id=request.data['lease_id'])
-    l = get_lease(request.user)    
+    l = get_lease(request.user)
     chat = ChatMessage(
         lease=l,
         message=request.data['message'],
@@ -112,7 +128,8 @@ def createCard(request):
         a = Announcement(card=hc)
         a.save()
     elif request.data['type'] == 'payment':
-        uc = UserCard(basecard=c, poster=request.user, recipient=request.data['recipient'])
+        recipient = User.objects.get(username=request.data['recipient'])
+        uc = UserCard(basecard=c, poster=request.user, recipient=recipient)
         uc.save()
         p = PaymentRequest(card=uc, amount=request.data['amount'])
         p.save()
@@ -293,8 +310,20 @@ def addHouse(request):
 
 @login_required
 def rentCalculation(request):
-    form = RentCalculator(request.user)
-    return render(request, 'rentcalculator.html', context={'form':form})
+    if request.method == 'POST':
+        if 'cal_btn' in request.POST:
+            cal_form = RentCalculator(request.user, request.POST)
+            if cal_form.is_valid():
+                print ("here")
+        elif 'add_btn' in request.POST:
+            add_form = AddRoomForm(request.user, request.POST)
+            if add_form.is_valid():
+                l = Lease.objects.get(id=get_lease(request.user))
+                # room = Room(lease=l, name=add_form.cleaned_data['room_name'], )
+    
+    add_form = AddRoomForm(request.user)
+    cal_form = RentCalculator(request.user)
+    return render(request, 'rentcalculator.html', context={'cal_form':cal_form, 'add_form':add_form})
 
 @login_required
 def tasks(request):

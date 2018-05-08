@@ -5,8 +5,13 @@
 {% block content %}
     <form>
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" name="prq_btn"/>
+        {{ add_form }}
+        <input type="submit" value="Submit" name="add_btn"/>
+    </form>
+    <form>
+        {% csrf_token %}
+        {{ cal_form }}
+        <input type="submit" value="Submit" name="cal_btn"/>
         <!-- <button type="submit">Calculate</button> -->
     </form>
 {% endblock %}

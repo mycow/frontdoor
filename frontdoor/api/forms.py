@@ -54,11 +54,21 @@ class SetToCurrentLease(forms.Form):
 #     class Meta:
 
 class RentCalculator(forms.Form):
-    num_tenants = forms.IntegerField(label='Number of Tenants')
+    # num_tenants = forms.IntegerField(label='Number of Tenants')
     total_rent = forms.IntegerField(label='Total Rent')
+    include_common_space = forms.BooleanField()
+    common_space_importance = forms.IntegerField()
 
     def __init__(self, user, *args, **kwargs):
         super(RentCalculator, self).__init__(*args, **kwargs)
+
+class AddRoomForm(forms.Form):
+    room_name = forms.CharField()
+    square_footage = forms.IntegerField()
+    number_of_residents = forms.IntegerField()
+
+    def __init__(self, user, *args, **kwargs):
+        super(AddRoomForm, self).__init__(*args, **kwargs)
 
 class SignUpForm(UserCreationForm):
     TYPE_CHOICES = (

@@ -22,6 +22,9 @@ class Lease(models.Model):
     house = models.ForeignKey(House, on_delete=models.CASCADE, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    includecommonarea = models.BooleanField(default=True)
+    rentscalefactor = models.IntegerField(null=True)
+    rent = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -94,7 +97,18 @@ class ChatMessage(models.Model):
     message = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name='chatlikes')    
+    likes = models.ManyToManyField(User, related_name='chatlikes')  
+
+class Room(models.Model):
+    lease = models.ForeignKey(Lease, on_delete=models.CASCADE, null=True)
+    users = models.ManyToManyField(User, related_name='roomtenants')
+    num_users_if_no_users = models.IntegerField(null=True)
+    rent = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    squarefeet = models.IntegerField(null=True)
+    name = models.TextField()
+    hasbathroom = models.BooleanField(default=False)
+    hasawkwardlayout = models.BooleanField(default=False)
+    hascloset = models.BooleanField(default=False)
 
 # class Sublease(models.Model):
 

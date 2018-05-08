@@ -26,6 +26,7 @@ router.register(r'payments', views.PaymentRequestViewSet)
 router.register(r'cards', views.CardViewSet)
 router.register(r'chats', views.ChatMessageViewSet)
 router.register(r'leases', views.LeaseViewSet)
+router.register(r'lease/users', views.LeaseUserViewSet)
 # router.register(r'cardslike', view)
 # router.register(r'card/<int:card_id>/like', views.CardViewSet)
 
