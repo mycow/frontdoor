@@ -95,9 +95,87 @@ class CardViewSet(viewsets.ModelViewSet):
     #     print (id)
 
 @api_view(['POST'])
-def calculateRent(request):
+def addhousefrompost(request):
+    l = Lease.objects.get(id=get_lease(request.user).id)
+    # l = Lease.objects.get(id=get_lease(request.user).id)
+    r = Room(
+        name=request.data['room_name'],
+        squarefeet=request.data['square_footage'],
+        lease=l,
+        num_users=request.data['number_of_residents'],
+        hasbathroom=request.data['has_bathroom'],
+        hasawkwardlayout=request.data['has_awkward_layout'],
+        hascloset=request.data['has_closet']
+    )
+    r.save()
+    if l.rent:
+        rooms = Room.objects.filter(lease=l)
+        totalsqft = rooms.aggregate(Sum('squarefeet'))['squarefeet__sum']
+        personcounthouse = rooms.aggregate(Sum('num_users'))['num_users__sum']
+        change = 0
+        for room in rooms:
+            rent = calculate_rent_for_room(
+                l.rent,
+                l.rentscalefactor,
+                room.squarefeet,
+                totalsqft,
+                rooms.count(),
+                room.num_users,
+                personcounthouse,
+                (1+.05*room.hasbathroom+.05*room.hascloset-.05*room.hasawkwardlayout)
+            )
+            flooredrent = 5*floor(rent/5)
+            change += rent-flooredrent
+            room.rent = flooredrent
+            room.save()
+        change = 5*ceil(change/5)
+        sortedrooms = sorted(rooms, key=attrgetter('rent'))
+        for room in sortedrooms:
+            # print (str(change)+" "+str(room.num_users))
+            if change >= 5*room.num_users:
+                room.rent = room.rent + 5
+                change -= 5*room.num_users
+                room.save()
+    return Response(status=status.HTTP_200_OK)
 
-    return feed(request)
+@api_view(['POST'])
+def calculateRent(request):
+    l = Lease.objects.get(id=get_lease(request.user).id)
+    l.rent = request.data['total_rent']
+    l.includecommonarea = request.data['include_common_space']
+    l.rentscalefactor = float(request.data['common_space_importance'])
+    l.save()
+    rooms = Room.objects.filter(lease=l)
+    # print (rooms.count())
+    totalsqft = rooms.aggregate(Sum('squarefeet'))['squarefeet__sum']
+    personcounthouse = rooms.aggregate(Sum('num_users'))['num_users__sum']
+    # print (totalsqft)
+    change = 0
+    for room in rooms:
+        rent = calculate_rent_for_room(
+            l.rent,
+            l.rentscalefactor,
+            room.squarefeet,
+            totalsqft,
+            rooms.count(),
+            room.num_users,
+            personcounthouse,
+            (1+.05*room.hasbathroom+.05*room.hascloset-.05*room.hasawkwardlayout)
+        )
+        flooredrent = 5*floor(rent/5)
+        change += rent-flooredrent
+        room.rent = flooredrent
+        room.save()
+    change = 5*ceil(change/5)
+    sortedrooms = sorted(rooms, key=attrgetter('rent'))
+    for room in sortedrooms:
+        # print (str(change)+" "+str(room.num_users))
+        if change >= 5*room.num_users:
+            room.rent = room.rent + 5
+            change -= 5*room.num_users
+            room.save()
+
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def card_list_view(request, card_id):

@@ -38,17 +38,39 @@ POST A change to user's current lease e.g.
 
     "lease_id":3
 
+
 @GET
 /api/lease/users/
 all users in a lease
 is_self=true
 
+
 @GET
 /api/rooms/
 rooms
 
+
 @POST
+/api/room/add/
+add a room
+
+Fields:
+    room_name
+    square_footage
+    number_of_residents
+    has_bathroom
+    has_awkward_layout
+    has_closet
+
+
+@POST
+/api/rent/
 rent calc
+
+Fields:
+    total_rent
+    include_common_space
+    common_space_importance
 
 @POST
 sublease req
