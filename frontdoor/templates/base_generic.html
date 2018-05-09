@@ -28,6 +28,7 @@
           <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'logout'%}?next={{request.path}}"><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/shutdown.png"> Logout</a></li>  
         </ul>
       </div>
+      <a href="{% url 'feed' %}"><img class="companylogo" src="{% static 'images/frontdoorlogo.png' %}"></a>
       <div class="searches">
         <form type="get" action="post" style="margin: 0">
           <input  id="search_box" type="text" name="search_box"  placeholder="Search" >

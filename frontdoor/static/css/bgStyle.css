@@ -38,6 +38,15 @@ footer {
   z-index: 2;
 }
 
+.companylogo {
+  max-width: 30px;
+  max-height: 30px;
+  float: left;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 6px;
+}
+
 .welcometext {
   float: right;
 }

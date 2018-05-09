@@ -71,7 +71,7 @@ hr.actionDiv {
   padding-top: 71.5px;
   width: 33%;
   height: 30%;
-  text-align: center;
+  text-align: left;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -81,6 +81,7 @@ hr.actionDiv {
   border: 0.5px solid grey;
   border-radius: 2px 2px 2px 2px;
   background-color: #EFEFF4;
+  padding: 10px;
 }
 
 .utilityplaceholder {
