@@ -1,13 +1,15 @@
 var mouse_inside = false;
 
-$('.nav .nav-pills li').click(function(){
-	$(".nav .nav-pills li").removeClass("active");
+$('.nav .nav-tabs li').click(function(){
+	$(".nav .nav-tabs li").removeClass("active");
 	$(this).addClass("active");
 })
 
 $(document).ready(function(){
-    $(".nav-pills a").click(function(){
-        $(this).tabs('show');
+	$(".feed").addClass("active");
+
+    $(".nav-tabs a").click(function(){
+        $(this).tabs("option", "show");
     });
 
     $('.dropdown-toggle').dropdown();

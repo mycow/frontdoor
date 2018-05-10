@@ -1,0 +1,43 @@
+form.main {
+  z-index: 999;
+}
+
+input#id_num_tenants {
+  width: 100%;
+}
+
+input#id_total_rent {
+  width: 100%
+}
+
+.wrap {
+  padding-top: 250px;
+}
+
+.header {
+  text-align: center;
+  width: 40%;
+  margin: 0 auto 0px;
+  border: 0.5px solid grey;
+  border-radius: 3px 3px 0px 0px;
+  background-color: #EFEFF4;
+  border-bottom: none;
+  padding: 5px;
+}
+
+.formcont {
+  width: 40%;
+  margin: 0 auto 0px;
+  padding: 20px;
+  border: 0.5px solid grey;
+  border-radius: 0px 0px 3px 3px;
+  border-top: none;
+  background-color: #EFEFF4;
+  white-space: normal;
+}
+
+.btn-primary {
+  background-color: #3d1a47;
+  border-color: #3d1a47;
+  width: 100%;
+}

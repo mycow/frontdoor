@@ -1,26 +1,50 @@
 {% extends 'base_generic.html' %}
-
-{% block title %}Rent{% endblock %}
-
+{% load bootstrap3 %}
 {% block content %}
-    {% if rooms %}
-    {% for room in rooms %}
-    <p><b>{{ room.name }}</b> {{ room.rent }} x{{ room.num_users }}</p>
-    <p>sqft: {{ room.squarefeet }}</p>
-    <p>{% if room.hasbathroom %}Bathroom{% endif %}</p>
-    <p>{% if room.hasawkwardlayout %}Awkward Layout{% endif %}</p>
-    <p>{% if room.hascloset %}Closet{% endif %}</p>
-    {% endfor %}
-    {% endif %}
-    <form action="/rent/" method="post">
-        {% csrf_token %}
-        {{ add_form }}
-        <input type="submit" value="Add" name="add_btn"/>
-    </form>
-    <form action="/rent/" method="post">
-        {% csrf_token %}
-        {{ cal_form }}
-        <input type="submit" value="Calculate" name="cal_btn"/>
-        <!-- <button type="submit">Calculate</button> -->
-    </form>
+<!DOCTYPE html>
+<html>
+<head>
+  {% block title %}<title>Rent Calculator</title>{% endblock %}
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/rent.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/rent.js' %}"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<h2>Split the Rent!</h2>
+        </div>
+        <div class="rooms">
+            {% if rooms %}
+            {% for room in rooms %}
+            <p><b>{{ room.name }}</b> {{ room.rent }} x{{ room.num_users }}</p>
+            <p>sqft: {{ room.squarefeet }}</p>
+            <p>{% if room.hasbathroom %}Bathroom{% endif %}</p>
+            <p>{% if room.hasawkwardlayout %}Awkward Layout{% endif %}</p>
+            <p>{% if room.hascloset %}Closet{% endif %}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+		<div class="formcont">
+            <form action="/rent/" method="post">
+                {% csrf_token %}
+                {{ add_form }}
+                <input type="submit" value="Add" name="add_btn"/>
+            </form>
+            <form action="/rent/" method="post">
+                {% csrf_token %}
+                {{ cal_form }}
+                <input type="submit" value="Calculate" name="cal_btn"/>
+                <!-- <button type="submit">Calculate</button> -->
+            </form>
+		</div>
+	</div>
+</body>
 {% endblock %}
+</html>

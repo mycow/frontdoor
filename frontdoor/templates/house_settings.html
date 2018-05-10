@@ -1,15 +1,18 @@
 {% extends 'base_generic.html' %}
-
-{% block title %}Settings{% endblock %}
-
 {% block content %}
-    {% if houses %}
-    {% for house in houses %}
-    <div class="house">
-        <a href="/house-settings/{{ house.id }}/"><h1>{{ house.house.house_name }}</h1></a>
-        <h5>{{ house.start_date }} – {{ house.end_date }}</h5>
-    </div>
-    {% endfor %}
-    {% endif %}
-    <a href="{% url 'add-house'%}">Add House</a>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/house-settings.css' %}">
+<div id="wrap">
+	<div id="setForm">
+	{% if houses %}
+	{% for house in houses %}
+	    <div class="house">
+	        <a href="/house-settings/{{ house.id }}/"><h1>{{ house.house.house_name }}</h1></a>
+	        <h5>{{ house.start_date }} – {{ house.end_date }}</h5>
+	    </div>
+	    {% endfor %}
+	    {% endif %}
+	    <a href="{% url 'add-house'%}">Add House</a>
+	</div>
+</div>
 {% endblock %}

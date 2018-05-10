@@ -1,33 +1,42 @@
-{% extends 'base_generic.html' %}
-
-{% block title %}{{ house.house.house_name }}{% endblock %}
-
+{% extends "base_generic.html" %}
 {% block content %}
-    {% if is_current_lease %}
-    <p>This is your current lease</p>
-    {% else %}
-    <form action="/house-settings/{{ house.id }}/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Set to Current Lease" name="btn"/>
-    </form>
-    {% endif %}
-    <p>Tenants:</p>
-    <ul>
-    {% for t in tenants %}
-    <div class="tenant">
-        <li>{{ t.user.username }}</li>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/house_id_settings.css' %}">
+</head>
+<body>
+    <div id="setForm">
+        {% if is_current_lease %}
+        <h3>This is your current lease</h3>
+        {% else %}
+        <form action="/house-settings/{{ house.id }}/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Set to Current Lease" name="btn"/>
+        </form>
+        {% endif %}
+        <ul>
+            <h5>Tenants:</h5>
+            {% for t in tenants %}
+            <div class="tenant">
+                <li>{{ t.user.username }}</li>
+            </div>
+            {% endfor %}
+        </ul>
+        <p class="invitecode">Invite Code: {{ invite_code }}</p>
+        <a href="{% url 'settings' %}#house"><img class="sideicon" src="https://png.icons8.com/color/40/000000/down-left.png">Back</a>
     </div>
-    {% endfor %}
-    </ul>
-    <p>Invite Code: {{ invite_code }}</p>
-    <!-- {% if houses %}
-    {% for house in houses %}
-    <div class="house">
-        <h1>{{ house.house.house_name }}</h1>
-        <h5>{{ house.start_date }} – {{ house.end_date }}</h5>
-    </div>
-    {% endfor %}
-    {% endif %}
-    <a href="{% url 'add-house'%}">Add House</a> -->
+</body>
+</html>
 {% endblock %}
+        <!-- {% if houses %}
+        {% for house in houses %}
+        <div class="house">
+            <h1>{{ house.house.house_name }}</h1>
+            <h5>{{ house.start_date }} – {{ house.end_date }}</h5>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <a href="{% url 'add-house'%}">Add House</a> -->

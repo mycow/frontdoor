@@ -336,6 +336,12 @@ def postLike(request, card_id):
     return feed(request)
 
 @login_required
+def settings(request):
+    current_house = get_lease(request.user)
+    return render(request, 'settings.html', context={
+        'current_house':current_house})
+
+@login_required
 def accountSettings(request):
     # print (request.method)
     if request.method == 'POST':
@@ -372,10 +378,11 @@ def accountSettings(request):
     #     form = AccountSettingsForm(request.user)
     # print("no here")
     form = AccountSettingsForm(request.user)
-    return render(request, 'settings.html', context={'form':form})
+    return render(request, 'account-settings.html', context={'form':form})
 
 @login_required
 def houseIdSettings(request, house_id):
+    current_house = get_lease(request.user)
     house = Lease.objects.get(id=house_id)
     tenant = Tenant.objects.get(user__id=request.user.id)
     tenants = Account.objects.filter(leases=house)
@@ -395,7 +402,8 @@ def houseIdSettings(request, house_id):
         'tenants':tenants,
         'is_current_lease':is_current_lease,
         'invite_code':invite_code,
-        'form':form
+        'form':form,
+        'current_house':current_house
     })
 
 @login_required
@@ -407,9 +415,13 @@ def houseSettings(request):
     # else:
     #     form = HouseSettingsForm(request.user)
     houses = get_houses(request)
+    current_house = get_lease(request.user)
     # if houses:
     #     print("shet")
-    return render(request, 'house_settings.html', context={'houses':houses})
+    return render(request, 'house_settings.html', context={
+        'houses':houses,
+        'current_house':current_house
+    })
 
 @login_required
 def addHouse(request):
@@ -579,10 +591,12 @@ def rentCalculation(request):
     rooms = get_rooms(request)
     add_form = AddRoomForm(request.user)
     cal_form = RentCalculator(request.user, initial=initial)
+    current_house = get_lease(request.user)
     return render(request, 'rentcalculator.html', context={
         'rooms':rooms,
         'cal_form':cal_form,
-        'add_form':add_form
+        'add_form':add_form,
+        'current_house':current_house
     })
 
 @login_required
@@ -671,6 +685,7 @@ def feed(request):
                 vote.save()
 
     cards = get_cards(request)
+    current_house = get_lease(request.user)
     ann_form = PostAnnouncement(request.user)
     prq_form = PostPaymentRequest(request.user)
     tsk_form = PostTask(request.user)
@@ -683,7 +698,9 @@ def feed(request):
         'prq_form':prq_form,
         'tsk_form':tsk_form,
         'evt_form':evt_form,
-        'vte_form':vte_form})
+        'vte_form':vte_form,
+        'current_house':current_house
+    })
 
 def signup(request):
     # if request.user.is_authenticated:

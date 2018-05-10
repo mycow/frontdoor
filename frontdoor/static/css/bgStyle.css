@@ -1,0 +1,199 @@
+h1, h2, h3, h4 {font-family: "Trebuchet MS", Helvetica, sans-serif;}
+
+body {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  background-color: #D3D3D3;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+    
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  
+  .row.content {height: auto;} 
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.row.content {height: 1500px;}
+    
+/* Styling for topbar items */
+.topbar {
+  position: fixed;
+  height: 43px;
+  width: 100%;
+  background-color: #57A759;
+  overflow: visible;
+  margin-bottom: 15px;
+  z-index: 2;
+}
+
+.companylogo {
+  max-width: 30px;
+  max-height: 30px;
+  float: left;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 6px;
+}
+
+.welcometext {
+  float: right;
+}
+
+.searches {
+  margin-top: 8px;
+  margin-left: 150px;
+  border: none;
+  width: 500px;
+}
+
+#search_box {
+  border-radius: 3px 0 0 3px;
+  width: 400px;
+  height: 25px;
+  border: none;
+  padding-left: 10px;
+}
+
+#search_box::placeholder {
+  color: #D3D3D3;
+  font-weight: 100;
+}
+
+#search_submit {
+  height: 25px;
+  width: 50px;
+  margin-left: -4.1px;
+  margin-top: -100px;
+  z-index: 10;
+  border-radius: 0 3px 3px 0;
+  border: none;
+}
+
+.profileicon {
+  height: 35px;
+  width: 35px;
+  float: right;
+  margin-right: 20px;
+  margin-top: -5px;
+  position: relative;
+}
+
+.profilepic {
+  max-height: 100%;
+  max-width: 100%;
+  margin: 8px;
+}
+
+.dropdown-menu.top {
+  z-index: 999;
+  position: relative;
+  top: 40px;
+  left: 60px;
+  border-radius: 0 0 0 5px;
+  background-color: #EFEFF4;
+}
+
+.dropdown-toggle {
+  background-color: transparent;
+  border: none;
+}
+
+#menu1 {
+  padding: 0;
+  margin-top: 2px;
+}
+
+btn-primary {
+  background-color: transparent;
+}
+
+.dropdown-icon {
+  max-width: 15%;
+  max-height: 15%;
+  margin-bottom: 2.5px;
+}
+
+hr.navdiv {
+  border: 0; 
+  height: 1px; 
+  width: 100%;
+  margin: 0;
+  background-color: black;
+}
+
+/* End topbar styling */
+
+/* Styling for sidenav items */
+.sidenav {
+  width: 17%;
+  height: 100%;
+  padding: 20px;
+  margin-left: 85px;
+  margin-top: 45px;
+  overflow: hidden;
+}
+
+.housename {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.dropdown-menu.side {
+  left: 10px;
+}
+
+ul.sidebar-nav {
+  list-style-type: none;
+  margin: 3px;
+  padding: 0;
+  width: 12.8%;
+  height: 100%;
+  position: fixed;
+}
+
+li a.navbtn {
+  display: block;
+  color: #3D5E27;
+  padding: 3px 10px;
+  text-decoration: none;
+  height: 100%
+  width: 100%;
+}
+
+a:hover {
+  background-color: #EFEFF4;
+  border-radius: 3px 3px 3px 3px;
+}
+
+li a.navbtn.active {
+  font-weight: bolder;
+  color: #3D5E27;
+  background-color: #EFEFF4;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.navlink {
+  overflow: auto;
+}
+
+.sideicon {
+  max-width: 25px;
+  max-height: 25px;
+  padding-left: 0;
+}
+
+.sidebar-nav.settings {
+  visibility: hidden;
+}
+/* End sidenav styling*/

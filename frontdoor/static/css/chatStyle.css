@@ -1,0 +1,55 @@
+h4.righttitle {
+	color: #8290A0;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.rightside {
+	background-color: #EFEFF4;
+	height: 94.5%;
+	width: 20%;
+	float: right;
+	z-index: 999;
+	margin-top: 43px;
+	border: 1px solid #d3d3d3;
+	padding-left: 10px;
+}
+
+.chatboxoutter {
+	background-color: #EFEFF4;
+	height: 94.7%;
+	width: 55%;
+	z-index: 999;
+	margin: 0 auto 0;
+	margin-top: 42px;
+	padding-top: 1px;
+	position: relative;
+}
+
+.chatboxinner {
+	background-color: #EFEFF4;
+	height: 80%;
+	width: 90%;
+	z-index: 999;
+	border: 1px solid #d3d3d3;
+	margin: 0 auto 0;
+	padding: 10px;
+	overflow-y: auto;
+}
+
+.chattitle {
+	color: #8290A0;
+	text-align: center;
+}
+
+.submit {
+	bottom: 0;
+	border-top: 1px solid #d3d3d3;
+	position: absolute;
+	height: 10%;
+	width: 100%;
+}

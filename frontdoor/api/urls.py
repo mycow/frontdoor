@@ -43,6 +43,7 @@ urlpatterns = [
     path('house-settings/<int:house_id>/', views.houseIdSettings),
     path('add-house/', views.addHouse, name='add-house'),
     path('feed/', views.feed, name='feed'),
+    path('settings/', views.settings, name='settings'),
     path('chat/', views.chat, name='chat'),
     path('rent/', views.rentCalculation, name='rent'),
     path('tasks/', views.tasks, name='tasks'),

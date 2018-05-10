@@ -1,102 +1,87 @@
     {% if card.type == 'announcement' %}
         <!--Announcement Card-->
         <div class="card announcement">
-        <div id="iconDiv" class="glyphicon glyphicon-bullhorn"></div>
-        <h1 id="announceTitle">{{ card.card.basecard.title }}</h1>
-        <p id="announcement"></p>
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <p>likes ({{ card.card.likes }})</p>
-        <br><br>
-        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
-        <div id="announcementComm" class="collapse">
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/megaphone.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <p id="announcement"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
+            <div id="announcementComm" class="collapse">
+            </div>
         </div>
-        </div>
-        <hr>
     {% elif card.type == 'payment' %}
         <!--Payment Card-->
         <div class="card payment">
-            <div id="iconDiv" class="glyphicon glyphicon-piggy-bank"></div>
-            <h1 id="paymentTitle">{{ card.card.basecard.title }}</h1>
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/stripe.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
             <h4 id="amount">Amount: ${{ card.amount }}</h4>
             <h4 id="charged">Charged: {{ card.card.recipient.username }}</h4>
             <br>
-            <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-            <br><br>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
         </div>
-        <hr>
     {% elif card.type == 'task' %}
         <!--Task Card-->
         <div class="card task">
-        <div id="iconDiv" class="glyphicon glyphicon-tasks"></div>
-        <h1 id="taskTitle">{{ card.card.basecard.title }}</h1>
-        <h4 id="assignee">Assigned: {{ card.assignee.username }}</h4>
-        <h5 id="completeDate"></h5>
-        <!--completed?-->
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <br><br>
-        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
-        <div id="taskComm" class="collapse">
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/to-do.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <h4 id="assignee">Assigned: {{ card.assignee.username }}</h4>
+            <h5 id="completeDate"></h5>
+            <!--completed?-->
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
+            <div id="taskComm" class="collapse">
+            </div>
         </div>
-        </div>
-        <hr>
     {% elif card.type == 'setup' %}
         <!--Setup Card-->
         <div class="card setup">
-        <div id="iconDiv" class="glyphicon glyphicon-wrench"></div>
-        <h1 id="setupTitle">{{ card.card.basecard.title }}</h1>
-        <p id="tipLink"></p>
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <br><br>
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/info.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <p id="tipLink"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
         </div>
-        <hr>
     {% elif card.type == 'sublease request' %}
         <!--Leasing Card-->
         <div class="card leasing">
-        <div id="iconDiv" class="glyphicon glyphicon-pushpin"></div>
-        <h1 id="leaseTitle">{{ card.card.basecard.title }}</h1>
-        <p id="leaseMessage"></p>
-        <h5 id="leaserName"></h5>
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <br><br>
-        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
-        <div id="leaseComm" class="collapse">
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/key-exchange.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <p id="leaseMessage"></p>
+            <h5 id="leaserName"></h5>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
+            <div id="leaseComm" class="collapse">
+            </div>
         </div>
-        </div>
-        <hr>
     {% elif card.type == 'event' %}
         <!--Event Card-->
         <div class="card event">
-        <div id="iconDiv" class="glyphicon glyphicon-calendar"></div>
-        <h1 id="eventTitle">{{ card.card.basecard.title }}</h1>
-        <p id="eventMessage"></p>
-        <p id="eventDate"></p>
-        <p id="eventTime"></p>
-        <p id="eventFrom"></p>
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <br><br>
-        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
-        <div id="eventComm" class="collapse">
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/calendar.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <p id="eventMessage"></p>
+            <p id="eventDate"></p>
+            <p id="eventTime"></p>
+            <p id="eventFrom"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
+            <div id="eventComm" class="collapse">
+            </div>
         </div>
-        </div>
-        <hr>
     {% elif card.type == 'vote' %}
         <!--Vote Card-->
         <div class="card vote">
-        <div id="iconDiv" class="glyphicon glyphicon-stats"></div>
-        <h1 id="voteTitle">{{ card.card.basecard.title }}</h1>
-            <span>
-            <input class="btn btn-success" type="button" value="Yes" />
-            <input type="hidden" name="yes" value="{{ yes }}" />
-            <input class="btn btn-danger" type="button" value="No" />
-            <input type="hidden" name="no" value="{{ no }}" />
-            </span>
-        <p id="yesList"></p>
-        <p id="noList"></p>
-        <h5 class="timeStamp"><span class="glyphicon glyphicon-time"></span> Post by {{ card.card.poster.username }} {{ card.card.basecard.time }}</h5>
-        <br><br>
-        <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#voteComm">Comments</button>
-        <div id="voteComm" class="collapse">
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/poll-topic.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+                <span>
+                <input class="btn btn-success" type="button" value="Yes" />
+                <input type="hidden" name="yes" value="{{ yes }}" />
+                <input class="btn btn-danger" type="button" value="No" />
+                <input type="hidden" name="no" value="{{ no }}" />
+                </span>
+            <p id="yesList"></p>
+            <p id="noList"></p>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <br>
+            <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#voteComm">Comments</button>
+            <div id="voteComm" class="collapse">
+            </div>
         </div>
-        </div>
-        <hr>
     {% endif %}
