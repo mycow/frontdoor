@@ -35,6 +35,20 @@ class LeaseRoomViewSet(viewsets.ModelViewSet):
         currentlease = Tenant.objects.get(user=self.request.user).current_lease
         return Room.objects.filter(lease=currentlease)
 
+class LeaseRoomViewSetById(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = LeaseRoomSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        # leases = Account.objects.get(user=self.request.user).leases
+        # return Lease.objects.filter(id__in=leases)
+        lease = Lease.objects.get(id=self.kwargs['lease_id'])
+        return Room.objects.filter(lease=lease)
+
 class LeaseUserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
@@ -48,6 +62,20 @@ class LeaseUserViewSet(viewsets.ModelViewSet):
         # return Lease.objects.filter(id__in=leases)
         currentlease = Tenant.objects.get(user=self.request.user).current_lease
         return User.objects.filter(account__leases__in=[currentlease])
+
+class LeaseUserViewSetById(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = LeaseUserSerializer
+
+    def get_serializer_context(self):
+        return {'user': self.request.user.username}
+
+    def get_queryset(self):
+        # leases = Account.objects.get(user=self.request.user).leases
+        # return Lease.objects.filter(id__in=leases)
+        lease = Lease.objects.get(id=self.kwargs['lease_id'])        
+        return User.objects.filter(account__leases__in=[lease])
 
 class LeaseViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]

@@ -41,13 +41,24 @@ POST A change to user's current lease e.g.
 
 @GET
 /api/lease/users/
+all users in current lease
+is_self=true
+
+
+@GET
+/api/lease/<lease_id>/users/
 all users in a lease
 is_self=true
 
 
 @GET
 /api/rooms/
-rooms
+rooms in current lease
+
+
+@GET
+/api/lease/<lease_id>/rooms/
+rooms in a lese
 
 
 @POST
