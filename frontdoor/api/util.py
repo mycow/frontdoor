@@ -17,7 +17,7 @@ def roundbase(x, base=5):
 
 def calculate_rent_for_room(totalrent, rentscalefactor, sqft, totalsqft, roomcount, personcountroom, personcounthouse, multiplier):
     # print (str(totalrent)+" "+str(rentscalefactor)+" "+str(sqft)+" "+str(totalsqft)+" "+str(roomcount)+" "+str(personcountroom)+" "+str(personcounthouse))
-    roomprice = float(totalrent)*float(1-rentscalefactor)*float(sqft)/(totalsqft/roomcount)/roomcount/personcountroom*float(multiplier)
+    roomprice = float(totalrent)*float(1-rentscalefactor)*float(sqft)/(totalsqft/roomcount)/roomcount/personcountroom#*float(multiplier)
     commonprice = float(totalrent)*float(rentscalefactor)/personcounthouse
     return roomprice + commonprice
 
@@ -31,6 +31,11 @@ def get_houses(request):
     account = Account.objects.get(user__id=request.user.id)
     # print (account.leases.all())
     return account.leases.all()
+
+def get_chats(request):
+    l = get_lease(request.user)
+    chats = ChatMessage.objects.filter(lease=l)
+    return sorted(chats, key=attrgetter('time'))
 
 def get_cards(request):
     # user1 = User.objects.filter(username='evl')

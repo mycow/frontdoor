@@ -73,6 +73,12 @@ class AddRoomForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(AddRoomForm, self).__init__(*args, **kwargs)
 
+class ChatForm(forms.Form):
+    message = forms.CharField()
+
+    def __init__(self, user, *args, **kwargs):
+        super(ChatForm, self).__init__(*args, **kwargs)    
+
 class SignUpForm(UserCreationForm):
     TYPE_CHOICES = (
         ('T', 'Tenant'),

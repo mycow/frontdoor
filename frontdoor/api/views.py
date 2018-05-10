@@ -88,7 +88,7 @@ class CardViewSet(viewsets.ModelViewSet):
         return {'user': self.request.user.username}
 
     def get_queryset(self):
-        return Card.objects.filter(lease=get_lease(self.request.user))
+        return Card.objects.filter(lease=get_lease(self.request.user)).order_by('-time')
 
     # @action(methods=['post'], detail=True, permission_classes=[permissions.IsAuthenticated])
     # def like(self, request, card_id=None):
@@ -128,14 +128,24 @@ def addhousefrompost(request):
             change += rent-flooredrent
             room.rent = flooredrent
             room.save()
-        change = 5*ceil(change/5)
+        roomsum = 0
+        for room in Room.objects.filter(lease=l):
+            roomsum += room.rent * room.num_users
+        change = l.rent - roomsum #5*ceil(change/5)
         sortedrooms = sorted(rooms, key=attrgetter('rent'))
-        for room in sortedrooms:
-            # print (str(change)+" "+str(room.num_users))
-            if change >= 5*room.num_users:
-                room.rent = room.rent + 5
-                change -= 5*room.num_users
-                room.save()
+        while change > 5:
+            for room in sortedrooms:
+                # print (str(change)+" "+str(room.num_users))
+                if change >= 5*room.num_users:
+                    room.rent = room.rent + 5
+                    change -= 5*room.num_users
+                    room.save()
+        while change:
+            for room in sortedrooms:
+                if change:
+                    room.rent = room.rent + change
+                    change = 0
+                    room.save()
     return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
@@ -166,14 +176,24 @@ def calculateRent(request):
         change += rent-flooredrent
         room.rent = flooredrent
         room.save()
-    change = 5*ceil(change/5)
+    roomsum = 0
+    for room in Room.objects.filter(lease=l):
+        roomsum += room.rent * room.num_users
+    change = l.rent - roomsum #5*ceil(change/5)
     sortedrooms = sorted(rooms, key=attrgetter('rent'))
-    for room in sortedrooms:
-        # print (str(change)+" "+str(room.num_users))
-        if change >= 5*room.num_users:
-            room.rent = room.rent + 5
-            change -= 5*room.num_users
-            room.save()
+    while change > 5:
+        for room in sortedrooms:
+            # print (str(change)+" "+str(room.num_users))
+            if change >= 5*room.num_users:
+                room.rent = room.rent + 5
+                change -= 5*room.num_users
+                room.save()
+    while change:
+        for room in sortedrooms:
+            if change:
+                room.rent = room.rent + change
+                change = 0
+                room.save()
 
     return Response(status=status.HTTP_200_OK)
 
@@ -446,14 +466,24 @@ def rentCalculation(request):
                     change += rent-flooredrent
                     room.rent = flooredrent
                     room.save()
-                change = 5*ceil(change/5)
+                roomsum = 0
+                for room in Room.objects.filter(lease=l):
+                    roomsum += room.rent * room.num_users
+                change = l.rent - roomsum #5*ceil(change/5)
                 sortedrooms = sorted(rooms, key=attrgetter('rent'))
-                for room in sortedrooms:
-                    # print (str(change)+" "+str(room.num_users))
-                    if change >= 5*room.num_users:
-                        room.rent = room.rent + 5
-                        change -= 5*room.num_users
-                        room.save()
+                while change > 5:
+                    for room in sortedrooms:
+                        # print (str(change)+" "+str(room.num_users))
+                        if change >= 5*room.num_users:
+                            room.rent = room.rent + 5
+                            change -= 5*room.num_users
+                            room.save()
+                while change:
+                    for room in sortedrooms:
+                        if change:
+                            room.rent = room.rent + change
+                            change = 0
+                            room.save()
 
         elif 'add_btn' in request.POST:
             add_form = AddRoomForm(request.user, request.POST)
@@ -489,14 +519,24 @@ def rentCalculation(request):
                         change += rent-flooredrent
                         room.rent = flooredrent
                         room.save()
-                    change = 5*ceil(change/5)
+                    roomsum = 0
+                    for room in Room.objects.filter(lease=l):
+                        roomsum += room.rent * room.num_users
+                    change = l.rent - roomsum #5*ceil(change/5)
                     sortedrooms = sorted(rooms, key=attrgetter('rent'))
-                    for room in sortedrooms:
-                        # print (str(change)+" "+str(room.num_users))
-                        if change >= 5*room.num_users:
-                            room.rent = room.rent + 5
-                            change -= 5*room.num_users
-                            room.save()
+                    while change > 5:
+                        for room in sortedrooms:
+                            # print (str(change)+" "+str(room.num_users))
+                            if change >= 5*room.num_users:
+                                room.rent = room.rent + 5
+                                change -= 5*room.num_users
+                                room.save()
+                    while change:
+                        for room in sortedrooms:
+                            if change:
+                                room.rent = room.rent + change
+                                change = 0
+                                room.save()
 
     initial = {'include_common_space':True}
     l = Lease.objects.get(id=get_lease(request.user).id)
@@ -529,6 +569,26 @@ def calendar(request):
     lease = tenant.current_lease
     events = Event.objects.filter(Q(card__basecard__lease=lease))
     return render(request, 'calendar.html', context={'events':events})
+
+@login_required
+def chat(request):
+    if request.method == 'POST':
+        form = ChatForm(request.user, request.POST)
+        if form.is_valid():
+            chat = ChatMessage(
+                lease=get_lease(request.user),
+                message=form.cleaned_data['message'],
+                poster=request.user
+            )
+            chat.save()
+        
+    chats = get_chats(request)
+    form = ChatForm(request.user)
+
+    return render(request, 'chat.html', context={
+        'chats':chats,
+        'form':form
+    })
 
 @login_required
 def feed(request):

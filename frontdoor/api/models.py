@@ -24,7 +24,7 @@ class Lease(models.Model):
     end_date = models.DateField()
     includecommonarea = models.BooleanField(default=True)
     rentscalefactor = models.FloatField(null=True)
-    rent = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    rent = models.DecimalField(max_digits=8, decimal_places=2, null=True)
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

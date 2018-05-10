@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+    {% if chats %}
+    {% for chat in chats %}
+    <p><b>{{ chat.poster.username }}</b> {{ chat.message }}</p>
+    {% endfor %}
+    {% endif %}
+    <form action="/chat/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Send" name="btn"/>
+    </form>
+{% endblock %}
