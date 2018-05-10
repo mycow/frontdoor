@@ -629,10 +629,12 @@ def chat(request):
         
     chats = get_chats(request)
     form = ChatForm(request.user)
+    current_house = get_lease(request.user)
 
     return render(request, 'chat.html', context={
         'chats':chats,
-        'form':form
+        'form':form,
+        'current_house':current_house
     })
 
 @login_required

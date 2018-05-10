@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	$(".heading").append("<h2>Account Settings</h2>");
-	$("#formcont").load("../account-settings/");
+	$(".heading").append("<h2>House Settings</h2>");
+	$("#formcont").load("../house-settings/ #setForm");
 	$(".home").css("visibility", "hidden");
 	$(".settings").css("visibility", "visible");
 

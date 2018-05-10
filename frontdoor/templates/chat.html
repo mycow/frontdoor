@@ -13,11 +13,16 @@
 		<h4 class="righttitle">Tenants</h4>
 	</div>
 	<div class="chatboxoutter">
-		<h2 class="chattitle">Chat</h2>
+		<h2 class="chattitle">{{ current_house.house.house_name }} House Chat</h2>
 		<div class="chatboxinner">
             {% if chats %}
             {% for chat in chats %}
-            <p><b>{{ chat.poster.username }}</b> {{ chat.message }}</p>
+            <div>
+            	<b>{{ chat.poster.username }}</b>
+            	<div class="timestamp">{{ chat.time }}</div>
+            	<br>
+            	<p class="message">{{ chat.message }}</p>
+            </div>
             {% endfor %}
             {% endif %}
 		</div>

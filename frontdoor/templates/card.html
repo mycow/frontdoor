@@ -8,11 +8,15 @@
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
             <div id="announcementComm" class="collapse">
             </div>
+            <button class="likebutton">
+                <img class="likes" src="https://png.icons8.com/ios/40/000000/like.png">
+            </button>
+
         </div>
     {% elif card.type == 'payment' %}
         <!--Payment Card-->
         <div class="card payment">
-            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/stripe.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
+            <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/stack-of-money.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
             <h4 id="amount">Amount: ${{ card.amount }}</h4>
             <h4 id="charged">Charged: {{ card.card.recipient.username }}</h4>
             <br>
@@ -31,6 +35,9 @@
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
             <div id="taskComm" class="collapse">
             </div>
+            <button class="likebutton">
+                <img class="likes" src="https://png.icons8.com/ios/40/000000/like.png">
+            </button>
         </div>
     {% elif card.type == 'setup' %}
         <!--Setup Card-->
@@ -51,6 +58,9 @@
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
             <div id="leaseComm" class="collapse">
             </div>
+            <button class="likebutton">
+                <img class="likes" src="https://png.icons8.com/ios/40/000000/like.png">
+            </button>
         </div>
     {% elif card.type == 'event' %}
         <!--Event Card-->
@@ -65,6 +75,9 @@
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
             <div id="eventComm" class="collapse">
             </div>
+            <button class="likebutton">
+                <img class="likes" src="https://png.icons8.com/ios/40/000000/like.png">
+            </button>
         </div>
     {% elif card.type == 'vote' %}
         <!--Vote Card-->

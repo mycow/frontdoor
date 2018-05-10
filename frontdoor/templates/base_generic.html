@@ -64,8 +64,8 @@
         </div>
         {% if user.is_authenticated %}
           <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>
-          <li><a class="navbtn accountset active" href="#account"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/gender-neutral-user.png"></span> Account Settings</a></li>
-          <li><a class="navbtn homeset" href="#house"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/cottage.png"> House Settings</span></a></li>
+          <li><a class="navbtn homeset active" href="#house"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/cottage.png"> House Settings</span></a></li>
+          <li><a class="navbtn accountset" href="#account"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/gender-neutral-user.png"></span> Account Settings</a></li>
         {% else %}
           <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
         {% endif %} 

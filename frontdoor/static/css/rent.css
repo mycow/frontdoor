@@ -1,17 +1,32 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+hr.actionDiv { 
+  border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+}
+
 form.main {
   z-index: 999;
 }
 
-input#id_num_tenants {
+input[type=text] {
   width: 100%;
 }
 
-input#id_total_rent {
-  width: 100%
+input[type=number] {
+  width: 26%;
 }
 
 .wrap {
-  padding-top: 250px;
+  padding-top: 180px;
 }
 
 .header {
@@ -29,6 +44,7 @@ input#id_total_rent {
   width: 40%;
   margin: 0 auto 0px;
   padding: 20px;
+  padding-top: 10px;
   border: 0.5px solid grey;
   border-radius: 0px 0px 3px 3px;
   border-top: none;
@@ -36,8 +52,29 @@ input#id_total_rent {
   white-space: normal;
 }
 
-.btn-primary {
+input[value=Add] {
+  background-color: #3d1a47;
+  border-color: #3d1a47;
+  color: #EFEFF4;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[value=Calculate] {
   background-color: #3d1a47;
   border-color: #3d1a47;
   width: 100%;
+  color: #EFEFF4;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.rooms {
+  background-color: #EFEFF4;
+  height: 100%;
+  width: 20%;
+  float: right;
+  z-index: 999;
+  margin-top: 40px;
+  border: 1px solid #d3d3d3;
+  padding-left: 10px;
+  overflow-y: auto;
 }

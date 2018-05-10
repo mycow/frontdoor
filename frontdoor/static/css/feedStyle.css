@@ -30,6 +30,8 @@ div#tabs.card-header {
   border-radius: 3px 3px 3px 3px;
   background-color: #EFEFF4;
   white-space: normal;
+  overflow: auto;
+  height: 100%;
 }
 
 .cardimg {
@@ -41,7 +43,7 @@ div#tabs.card-header {
 }
 
 .cardhead {
-  max-height: 50px;
+  height: 100%;
 }
 
 #title {
@@ -67,6 +69,17 @@ div#tabs.card-header {
 #comments {
   color: #8290A0;
   padding-left: 0px;
+}
+
+.likebutton {
+  background-color: transparent;
+  border: none;
+  float: right;
+}
+
+.likes {
+  max-width: 50%;
+  max-height: 50%;
 }
 
 /* End of card styling */
