@@ -19,7 +19,10 @@ from .util import *
 from .forms import *
 
 def index(request):
-    return render(request, 'index.html', context={})
+    if request.user.is_authenticated:
+        return redirect('feed')
+    return redirect('/accounts/login/')
+    # return render(request, 'index.html', context={})
 
 class LeaseRoomViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
