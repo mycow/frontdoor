@@ -181,7 +181,8 @@ def addhousefrompost(request):
 
 @api_view(['POST'])
 def calculateRent(request):
-    l = Lease.objects.get(id=get_lease(request.user).id)
+    # l = Lease.objects.get(id=get_lease(request.user).id)
+    l = Lease.objects.get(id=10)
     l.rent = request.data['total_rent']
     l.includecommonarea = request.data['include_common_space']
     l.rentscalefactor = float(request.data['common_space_importance'])
@@ -634,7 +635,7 @@ def chat(request):
         form = ChatForm(request.user, request.POST)
         if form.is_valid():
             chat = ChatMessage(
-                lease=get_lease(request.user),
+                lease=Lease.objects.get(id=10),#get_lease(request.user),
                 message=form.cleaned_data['message'],
                 poster=request.user
             )
