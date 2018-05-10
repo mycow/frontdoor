@@ -127,7 +127,7 @@ class CardViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def addhousefrompost(request):
-    l = Lease.objects.get(id=get_lease(request.user).id)
+    l = Lease.objects.get(id=10)
     # l = Lease.objects.get(id=get_lease(request.user).id)
     r = Room(
         name=request.data['room_name'],
@@ -269,8 +269,8 @@ def createChatMessage(request):
 
 @api_view(['POST'])
 def createCard(request):
-    # l = Lease.objects.get(id=request.data['lease_id'])
-    l = get_lease(request.user)
+    l = Lease.objects.get(id=10)
+    # l = get_lease(request.user)
     c = Card(title=request.data['title'], lease=l)
     c.save()
     if request.data['type'] == 'announcement':
