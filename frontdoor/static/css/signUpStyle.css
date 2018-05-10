@@ -3,6 +3,10 @@ body {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
+input {
+	width: 100%;
+}
+
 .topbar {
 	position: fixed;
 	height: 43px;
@@ -30,8 +34,13 @@ body {
 	margin: 0;
 }
 
+.signupblock {
+	margin-top: 20px;
+	height: 90%;
+}
+
 .header {
-	width: 30%;
+	width: 35%;
 	margin: 0 auto 0px;
 	color: white;
 	background: #57A759;
@@ -42,12 +51,9 @@ body {
 	padding: 20px;
 }
 
-.signupblock {
-	margin-top: 80px;
-}
-
 form {
-	width: 30%;
+	width: 35%;
+	height: 90%;
 	margin: 0px auto;
 	padding: 20px;
 	border: 0.5px solid #D1BF8C;
@@ -55,6 +61,10 @@ form {
 	border-radius: 0px 0px 10px 10px;
 	z-index: 1;
 	opacity: 0.9;
+}
+
+ul {
+	padding: 10px;
 }
 
 .btn-primary {

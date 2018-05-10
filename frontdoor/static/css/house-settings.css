@@ -15,5 +15,6 @@ html, body {
   background-color: #EFEFF4;
   border: 0.5px solid grey;
   border-radius: 0px 0px 3px 3px;
+  border-top: none;
   padding: 10px;
 }

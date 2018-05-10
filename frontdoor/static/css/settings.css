@@ -1,3 +1,9 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 form.main {
   z-index: 999;
 }
@@ -11,7 +17,7 @@ input#id_total_rent {
 }
 
 .wrap {
-  padding-top: 250px;
+  padding-top: 200px;
 }
 
 .heading {

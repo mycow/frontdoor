@@ -22,22 +22,34 @@ html, body {
 .chatboxoutter {
 	background-color: #EFEFF4;
 	height: 94.7%;
-	width: 50%;
+	width: 55%;
 	z-index: 999;
 	margin: 0 auto 0;
 	margin-top: 42px;
-	border: 1px solid #d3d3d3;
+	padding-top: 1px;
+	position: relative;
 }
 
 .chatboxinner {
 	background-color: #EFEFF4;
-	height: 95%;
-	width: 95%;
+	height: 80%;
+	width: 90%;
 	z-index: 999;
-	margin: 0 auto 0;
-	margin-top: 23px;
 	border: 1px solid #d3d3d3;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	padding-left: 10px;
+	margin: 0 auto 0;
+	padding: 10px;
 	overflow-y: auto;
+}
+
+.chattitle {
+	color: #8290A0;
+	text-align: center;
+}
+
+.submit {
+	bottom: 0;
+	border-top: 1px solid #d3d3d3;
+	position: absolute;
+	height: 10%;
+	width: 100%;
 }

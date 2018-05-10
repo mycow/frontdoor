@@ -45,52 +45,42 @@
               <h1 class="actionTitle">Create a New Post</h1>
             </div>
             <div class="tab-pane fade" id="announcement" role="tabpanel">
-              <form action="/feed/" method="post">
+              <form action="/feed/" method="post" class="center">
                   {% csrf_token %}
-                  <table>
                     {{ ann_form }}
-                  </table>
-                    <br>
+                    <br><br>
                   <input class="btn btn-primary" type="submit" value="Post" name="ann_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="payment" role="tabpanel">
               <form action="/feed/" method="post" class="center">
                   {% csrf_token %}
-                  <table>
                     {{ prq_form }}
-                  </table>
-                  <br>
+                  <br><br>
                   <input class="btn btn-primary" type="submit" value="Post" name="prq_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="task" role="tabpanel">
-              <form action="/feed/" method="post">
+              <form action="/feed/" method="post" class="center">
                   {% csrf_token %}
-                  <table class="center">
                     {{ tsk_form }}
-                  </table>
-                  <br>
+                  <br><br>
                   <input class="btn btn-primary" type="submit" value="Post" name="tsk_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="event" role="tabpanel">
-              <form action="/feed/" method="post">
+              <form action="/feed/" method="post" class="center">
                   {% csrf_token %}
-                  <table class="center">
                     {{ evt_form }}
-                  </table>
-                  <br>
+                  <br><br>
                   <input class="btn btn-primary" type="submit" value="Post" name="evt_btn"/>
               </form>
             </div>
             <div class="tab-pane fade" id="vote" role="tabpanel">
-              <form action="/feed/" method="post">
+              <form action="/feed/" method="post" class="center">
                   {% csrf_token %}
-                  <table class="center">
                     {{ vte_form }}
-                  </table>
-                  <br>
+                  <br><br>
                   <input class="btn btn-primary" type="submit" value="Post" name="vte_btn"/>
               </form>
             </div>
@@ -110,19 +100,19 @@
       <div class="col-sm-3 utilityFeed">
         <div class="utilitycard">
           <!--<h1 class="utilityplaceholder">Nothing Here</h1>-->
-          <div class="column">
-            <h4>Current House: </h4>
-            <h4>Address: </h4>
-            <h4><br></h4>
-            <h4>Lease Starts: </h4>
-            <h4>Lease Ends: </h4>
+          <div class="column one">
+            <h5>Current House: <h4>{{ current_house.house.house_name }}</h4></h5>
+            <h5>Address: <h4>{{ current_house.house.house_address.street }} {{ current_house.house.house_address.city }}, {{ current_house.house.house_address.state }} {{ current_house.house.house_address.code }}</h4></h5>
+            <h5>Lease Starts: <h4>{{ current_house.start_date }}</h4></h5>
+            <h5>Lease Ends: <h4>{{ current_house.end_date }}</h4></h5>
           </div>
-          <div class="column">
-            <h4>{{ current_house.house.house_name }}</h4>
-            <h4>{{ current_house.house.house_address.street }}<br>{{ current_house.house.house_address.city }}, {{ current_house.house.house_address.state }} {{ current_house.house.house_address.code }}</h4>
-            <h4>{{ current_house.start_date }}</h4>
-            <h4>{{ current_house.end_date }}</h4>
-          </div>
+          <!--<div class="column two">
+            <h5>{{ current_house.house.house_name }}</h5>
+            <h5>{{ current_house.house.house_address.street }} {{ current_house.house.house_address.city }}, {{ current_house.house.house_address.state }} {{ current_house.house.house_address.code }}</h5>
+
+            <h5>{{ current_house.start_date }}</h5>
+            <h5>{{ current_house.end_date }}</h5>
+          </div>-->
         </div>
       </div>
     </div>

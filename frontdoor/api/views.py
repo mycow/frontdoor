@@ -33,7 +33,9 @@ class CardViewSet(viewsets.ModelViewSet):
 
 @login_required
 def settings(request):
-    return render(request, 'settings.html', context={})
+    current_house = get_lease(request.user)
+    return render(request, 'settings.html', context={
+        'current_house':current_house})
 
 @login_required
 def accountSettings(request):
@@ -76,6 +78,7 @@ def accountSettings(request):
 
 @login_required
 def houseIdSettings(request, house_id):
+    current_house = get_lease(request.user)
     house = Lease.objects.get(id=house_id)
     tenant = Tenant.objects.get(user__id=request.user.id)
     tenants = Account.objects.filter(leases=house)
@@ -95,7 +98,8 @@ def houseIdSettings(request, house_id):
         'tenants':tenants,
         'is_current_lease':is_current_lease,
         'invite_code':invite_code,
-        'form':form
+        'form':form,
+        'current_house':current_house
     })
 
 @login_required
@@ -107,9 +111,12 @@ def houseSettings(request):
     # else:
     #     form = HouseSettingsForm(request.user)
     houses = get_houses(request)
+    current_house = get_lease(request.user)
     # if houses:
     #     print("shet")
-    return render(request, 'house_settings.html', context={'houses':houses})
+    return render(request, 'house_settings.html', context={
+        'houses':houses,
+        'current_house':current_house})
 
 @login_required
 def addHouse(request):
@@ -163,10 +170,15 @@ def addHouse(request):
 @login_required
 def rentCalculation(request):
     form = RentCalculator(request.user)
-    return render(request, 'rentcalculator.html', context={'form':form})
+    current_house = get_lease(request.user)
+    return render(request, 'rentcalculator.html', context={
+        'form':form,
+        'current_house':current_house})
 
 def chat(request):
-    return render(request, 'chat.html', context={})
+    current_house = get_lease(request.user)
+    return render(request, 'chat.html', context={
+        'current_house':current_house})
 
 @login_required
 def feed(request):
