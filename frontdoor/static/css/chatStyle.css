@@ -1,0 +1,43 @@
+h4.righttitle {
+	color: #8290A0;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.rightside {
+	background-color: #EFEFF4;
+	height: 94.5%;
+	width: 20%;
+	float: right;
+	z-index: 999;
+	margin-top: 43px;
+	border: 1px solid #d3d3d3;
+	padding-left: 10px;
+}
+
+.chatboxoutter {
+	background-color: #EFEFF4;
+	height: 94.7%;
+	width: 50%;
+	z-index: 999;
+	margin: 0 auto 0;
+	margin-top: 42px;
+	border: 1px solid #d3d3d3;
+}
+
+.chatboxinner {
+	background-color: #EFEFF4;
+	height: 95%;
+	width: 95%;
+	z-index: 999;
+	margin: 0 auto 0;
+	margin-top: 23px;
+	border: 1px solid #d3d3d3;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding-left: 10px;
+	overflow-y: auto;
+}

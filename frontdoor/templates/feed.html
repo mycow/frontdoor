@@ -110,11 +110,19 @@
       <div class="col-sm-3 utilityFeed">
         <div class="utilitycard">
           <!--<h1 class="utilityplaceholder">Nothing Here</h1>-->
-          <h4>Current House: Courtside</h4>
-          <h4>Address: </h4>
-          <h4>Landlord: Ya mom</h4>
-          <h4>Lease Starts: Today</h4>
-          <h4>Lease Ends: Tomorrow</h4>
+          <div class="column">
+            <h4>Current House: </h4>
+            <h4>Address: </h4>
+            <h4><br></h4>
+            <h4>Lease Starts: </h4>
+            <h4>Lease Ends: </h4>
+          </div>
+          <div class="column">
+            <h4>{{ current_house.house.house_name }}</h4>
+            <h4>{{ current_house.house.house_address.street }}<br>{{ current_house.house.house_address.city }}, {{ current_house.house.house_address.state }} {{ current_house.house.house_address.code }}</h4>
+            <h4>{{ current_house.start_date }}</h4>
+            <h4>{{ current_house.end_date }}</h4>
+          </div>
         </div>
       </div>
     </div>

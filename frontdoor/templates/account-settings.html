@@ -1,10 +1,7 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/account-settings.css' %}">
-	<div class="header">
-		<h2>Account Settings</h2>
-	</div>
-    <form id="setForm" action="/account-settings/" method="post">
+    <form id="set" action="/account-settings/" method="post">
         <p>Are you a landlord or a tenant?</p>
         {% csrf_token %}
         {{ form }}

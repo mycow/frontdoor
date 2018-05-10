@@ -17,7 +17,7 @@
     {% load static %}
     <div class="topbar">
       <div class="profileicon">
-        <img class="profilepic" src="{% static 'images/defaultusericon.png' %}">
+        <img class="profilepic" src="https://png.icons8.com/color/96/000000/user-male-circle.png">
       </div>
 
       <div class="dropdown welcometext">
@@ -49,7 +49,7 @@
           <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>
           <li><a class="navbtn rent" href="{% url 'rentcalculator' %}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/banknotes.png"></span> Rent Calculator</a></li>
           <li><a class="navbtn lease" href="#"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/land-sales.png"></span> Leasing Bulletin</a></li>
-          <li><a class="navbtn chat" href="#"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/moved-topic.png"></span> Chat</a></li>
+          <li><a class="navbtn chat" href="{% url 'chat' %}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/moved-topic.png"></span> Chat</a></li>
         {% else %}
           <li><a class="navbtn" href="{% url 'login'%}?next={{request.path}}"></a></li>  
         {% endif %} 

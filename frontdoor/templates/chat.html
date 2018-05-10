@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+{% load bootstrap3 %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	{% block title %}<title></title>{% endblock %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/chatStyle.css' %}">
+</head>
+<body>
+	<div class="rightside">
+		<h4 class="righttitle">Tenants</h4>
+	</div>
+	<div class="chatboxoutter">
+		<div class="chatboxinner">
+		</div>
+	</div>
+</body>
+{% endblock %}
+</html>

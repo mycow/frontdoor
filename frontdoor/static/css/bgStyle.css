@@ -1,6 +1,4 @@
-h1{font-family: "Trebuchet MS", Helvetica, sans-serif;}
-
-h3{font-family: "Trebuchet MS", Helvetica, sans-serif;}
+h1, h2, h3, h4 {font-family: "Trebuchet MS", Helvetica, sans-serif;}
 
 body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -82,19 +80,17 @@ footer {
 }
 
 .profileicon {
-  height: 30px;
-  width: 30px;
-  background-color: white;
-  border-radius: 50%;
+  height: 35px;
+  width: 35px;
   float: right;
-  margin-top: 5px;
   margin-right: 20px;
+  margin-top: -5px;
   position: relative;
 }
 
 .profilepic {
-  max-height: 50%;
-  max-width: 50%;
+  max-height: 100%;
+  max-width: 100%;
   margin: 8px;
 }
 
@@ -110,6 +106,11 @@ footer {
 .dropdown-toggle {
   background-color: transparent;
   border: none;
+}
+
+#menu1 {
+  padding: 0;
+  margin-top: 2px;
 }
 
 btn-primary {

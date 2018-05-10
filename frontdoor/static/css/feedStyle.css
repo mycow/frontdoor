@@ -82,6 +82,13 @@ hr.actionDiv {
   border-radius: 2px 2px 2px 2px;
   background-color: #EFEFF4;
   padding: 10px;
+  height: 50%;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
 }
 
 .utilityplaceholder {
