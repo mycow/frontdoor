@@ -165,6 +165,9 @@ def rentCalculation(request):
     form = RentCalculator(request.user)
     return render(request, 'rentcalculator.html', context={'form':form})
 
+def chat(request):
+    return render(request, 'chat.html', context={})
+
 @login_required
 def feed(request):
     if request.method == 'POST':
@@ -215,6 +218,7 @@ def feed(request):
                 vote.save()
 
     cards = get_cards(request)
+    current_house = get_lease(request.user)
     ann_form = PostAnnouncement(request.user)
     prq_form = PostPaymentRequest(request.user)
     tsk_form = PostTask(request.user)
@@ -227,7 +231,8 @@ def feed(request):
         'prq_form':prq_form,
         'tsk_form':tsk_form,
         'evt_form':evt_form,
-        'vte_form':vte_form})
+        'vte_form':vte_form,
+        'current_house':current_house})
 
 def signup(request):
     # if request.user.is_authenticated:

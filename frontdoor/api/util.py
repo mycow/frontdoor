@@ -74,6 +74,7 @@ def get_lease(user):
     tenant = Tenant.objects.get(user__username=user)
     return tenant.current_lease
 
+
 def createleaseandhouseandcreateaccountforuser(request):
     # # DO NOT RUN MORE THAN ONCE YET
     # # create house and account for current user
