@@ -258,8 +258,8 @@ def changeUserCurrentLease(request):
 @api_view(['POST'])
 def createChatMessage(request):
     # print (request.data)
-    # l = Lease.objects.get(id=request.data['lease_id'])
-    l = get_lease(request.user)
+    l = Lease.objects.get(id=10)
+    # l = get_lease(request.user)
     chat = ChatMessage(
         lease=l,
         message=request.data['message'],
@@ -635,7 +635,7 @@ def chat(request):
         form = ChatForm(request.user, request.POST)
         if form.is_valid():
             chat = ChatMessage(
-                lease=Lease.objects.get(id=10),#get_lease(request.user),
+                lease=get_lease(request.user),
                 message=form.cleaned_data['message'],
                 poster=request.user
             )
