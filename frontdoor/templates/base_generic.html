@@ -21,7 +21,7 @@
       </div>
 
       <div class="dropdown welcometext">
-        <button class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><h4>{{ user.get_username }}</h4></button>
+        <button class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><h4>{{ user.first_name }} {{ user.last_name }}</h4></button>
         <ul class="dropdown-menu top" role="menu" aria-labelledby="menu1">
           <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'settings' %}?next={{request.path}}"><img class="dropdown-icon" src="https://png.icons8.com/color/40/000000/settings.png"> Settings</a></li> 
           <hr class="navdiv">
@@ -40,10 +40,14 @@
       <ul class="sidebar-nav home">
         <div class="dropdown">
           <button class="btn dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><h3 class="housename">{{ current_house.house.house_name }} <img class="sideicon" src="https://png.icons8.com/color/40/000000/expand-arrow.png"></h3></button>
-          <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another House</a></li> 
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>  
-          </ul>
+          {% if houses %}
+            <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
+              {% for house in houses %}
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/switchtohouse/{{ house.id }}/">{{ house.house.house_name }}</a></li> 
+              {% endfor %}
+              <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>   -->
+            </ul>
+          {% endif %}
         </div>
         {% if user.is_authenticated %}
           <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>
@@ -56,11 +60,15 @@
       </ul>
       <ul class="sidebar-nav settings">
         <div class="dropdown">
-          <button class="btn dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><h3 class="housename">{{ current_house.house.house_name }} <img class="sideicon" src="https://png.icons8.com/color/40/000000/expand-arrow.png"></h3></button>
-          <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another House</a></li> 
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>  
-          </ul>
+          <button class="btn dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><h3 class="housename">{{ current_house.house.house_name }} {% if houses %}<img class="sideicon" src="https://png.icons8.com/color/40/000000/expand-arrow.png">{% endif %}</h3></button>
+          {% if houses %}
+            <ul class="dropdown-menu side" role="menu" aria-labelledby="menu2">
+              {% for house in houses %}
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/switchtohouse/{{ house.id }}/">{{ house.house.house_name }}</a></li> 
+              {% endfor %}
+              <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Da Crib</a></li>   -->
+            </ul>
+          {% endif %}
         </div>
         {% if user.is_authenticated %}
           <li><a class="navbtn feed" href="{% url 'feed' %}?next={{request.path}}"><span><img class="sideicon" src="https://png.icons8.com/color/40/000000/top-menu.png"> Feed</span></a></li>

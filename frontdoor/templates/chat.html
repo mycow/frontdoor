@@ -11,6 +11,13 @@
 <body>
 	<div class="rightside">
 		<h4 class="righttitle">Tenants</h4>
+		{% if tenants %}
+		<ul>
+			{% for tenant in tenants %}
+			<li>{{ tenant.first_name }} {{ tenant.last_name }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
 	</div>
 	<div class="chatboxoutter">
 		<h2 class="chattitle">{{ current_house.house.house_name }} House Chat</h2>
@@ -18,7 +25,7 @@
             {% if chats %}
             {% for chat in chats %}
             <div>
-            	<b>{{ chat.poster.username }}</b>
+            	<b>{{ chat.poster.first_name }} {{ chat.poster.last_name }}</b>
             	<div class="timestamp">{{ chat.time }}</div>
             	<br>
             	<p class="message">{{ chat.message }}</p>

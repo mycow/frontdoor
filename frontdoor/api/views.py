@@ -339,7 +339,8 @@ def postLike(request, card_id):
 def settings(request):
     current_house = get_lease(request.user)
     return render(request, 'settings.html', context={
-        'current_house':current_house})
+        'current_house':current_house,
+        'houses':get_houses(request)})
 
 @login_required
 def accountSettings(request):
@@ -378,7 +379,7 @@ def accountSettings(request):
     #     form = AccountSettingsForm(request.user)
     # print("no here")
     form = AccountSettingsForm(request.user)
-    return render(request, 'account-settings.html', context={'form':form})
+    return render(request, 'account-settings.html', context={'form':form, 'houses':get_houses(request), 'current_house':get_lease(request.user)})
 
 @login_required
 def houseIdSettings(request, house_id):
@@ -403,8 +404,18 @@ def houseIdSettings(request, house_id):
         'is_current_lease':is_current_lease,
         'invite_code':invite_code,
         'form':form,
-        'current_house':current_house
+        'current_house':current_house,
+        'houses':get_houses(request)
     })
+
+@login_required
+def switchtohouse(request, house_id):
+    tenant = Tenant.objects.get(user__id=request.user.id)
+    l = Lease.objects.get(id=house_id)
+    tenant.current_lease = l
+    tenant.save()
+
+    return redirect('/feed/')
 
 @login_required
 def houseSettings(request):
@@ -420,7 +431,8 @@ def houseSettings(request):
     #     print("shet")
     return render(request, 'house_settings.html', context={
         'houses':houses,
-        'current_house':current_house
+        'current_house':current_house,
+        'houses':get_houses(request)
     })
 
 @login_required
@@ -470,7 +482,7 @@ def addHouse(request):
     
     new_house_form = AddHouseForm(request.user)
     invite_form = InviteForm(request.user)
-    return render(request, 'add_house.html', context={'new_house_form':new_house_form, 'invite_form':invite_form})
+    return render(request, 'add_house.html', context={'new_house_form':new_house_form, 'invite_form':invite_form, 'houses':get_houses(request), 'current_house':get_lease(request.user)})
 
 @login_required
 def rentCalculation(request):
@@ -596,7 +608,8 @@ def rentCalculation(request):
         'rooms':rooms,
         'cal_form':cal_form,
         'add_form':add_form,
-        'current_house':current_house
+        'current_house':current_house,
+        'houses':get_houses(request)
     })
 
 @login_required
@@ -605,7 +618,7 @@ def tasks(request):
     tenant = Tenant.objects.get(user__username=request.user)
     lease = tenant.current_lease
     tasks = Task.objects.filter(Q(card__basecard__lease=lease))
-    return render(request, 'tasks.html', context={'tasks':tasks})
+    return render(request, 'tasks.html', context={'tasks':tasks, 'houses':get_houses(request), 'current_house':get_lease(request.user)})
 
 @login_required
 def calendar(request):
@@ -613,7 +626,7 @@ def calendar(request):
     tenant = Tenant.objects.get(user__username=request.user)
     lease = tenant.current_lease
     events = Event.objects.filter(Q(card__basecard__lease=lease))
-    return render(request, 'calendar.html', context={'events':events})
+    return render(request, 'calendar.html', context={'events':events, 'houses':get_houses(request), 'current_house':get_lease(request.user)})
 
 @login_required
 def chat(request):
@@ -629,12 +642,15 @@ def chat(request):
         
     chats = get_chats(request)
     form = ChatForm(request.user)
-    current_house = get_lease(request.user)
+
+    tenants = User.objects.filter(account__leases__in=[get_lease(request.user)])
 
     return render(request, 'chat.html', context={
         'chats':chats,
         'form':form,
-        'current_house':current_house
+        'houses':get_houses(request),
+        'current_house':get_lease(request.user),
+        'tenants':tenants
     })
 
 @login_required
@@ -701,7 +717,8 @@ def feed(request):
         'tsk_form':tsk_form,
         'evt_form':evt_form,
         'vte_form':vte_form,
-        'current_house':current_house
+        'current_house':current_house,
+        'houses':get_houses(request)
     })
 
 def signup(request):

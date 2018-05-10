@@ -3,7 +3,7 @@
         <div class="card announcement">
             <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/megaphone.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
             <p id="announcement"></p>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#announcementComm">Comments</button>
             <div id="announcementComm" class="collapse">
@@ -20,7 +20,7 @@
             <h4 id="amount">Amount: ${{ card.amount }}</h4>
             <h4 id="charged">Charged: {{ card.card.recipient.username }}</h4>
             <br>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
         </div>
     {% elif card.type == 'task' %}
@@ -30,7 +30,7 @@
             <h4 id="assignee">Assigned: {{ card.assignee.username }}</h4>
             <h5 id="completeDate"></h5>
             <!--completed?-->
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#taskComm">Comments</button>
             <div id="taskComm" class="collapse">
@@ -44,7 +44,7 @@
         <div class="card setup">
             <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/info.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
             <p id="tipLink"></p>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
         </div>
     {% elif card.type == 'sublease request' %}
@@ -53,7 +53,7 @@
             <div class="cardhead"><img class="cardimg" src="https://png.icons8.com/color/40/000000/key-exchange.png"><h2 id="title">{{ card.card.basecard.title }}</h2></div>
             <p id="leaseMessage"></p>
             <h5 id="leaserName"></h5>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#leaseComm">Comments</button>
             <div id="leaseComm" class="collapse">
@@ -70,7 +70,7 @@
             <p id="eventDate"></p>
             <p id="eventTime"></p>
             <p id="eventFrom"></p>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#eventComm">Comments</button>
             <div id="eventComm" class="collapse">
@@ -91,7 +91,7 @@
                 </span>
             <p id="yesList"></p>
             <p id="noList"></p>
-            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> {{ card.card.poster.username }} {{ card.card.basecard.time }}</h6>
+            <h6 class="timeStamp"><span class="glyphicon glyphicon-time"></span> <b>{{ card.card.poster.first_name }} {{ card.card.poster.last_name }}</b> {{ card.card.basecard.time }}</h6>
             <br>
             <button id="comments" type="button" class="btn btn-link" data-toggle="collapse" data-target="#voteComm">Comments</button>
             <div id="voteComm" class="collapse">
