@@ -131,7 +131,7 @@ def addhousefrompost(request):
         roomsum = 0
         for room in Room.objects.filter(lease=l):
             roomsum += room.rent * room.num_users
-        change = l.rent - roomsum #5*ceil(change/5)
+        change = float(l.rent) - float(roomsum) #5*ceil(change/5)
         sortedrooms = sorted(rooms, key=attrgetter('rent'))
         while change > 5:
             for room in sortedrooms:
@@ -179,7 +179,7 @@ def calculateRent(request):
     roomsum = 0
     for room in Room.objects.filter(lease=l):
         roomsum += room.rent * room.num_users
-    change = l.rent - roomsum #5*ceil(change/5)
+    change = float(l.rent) - float(roomsum) #5*ceil(change/5)
     sortedrooms = sorted(rooms, key=attrgetter('rent'))
     while change > 5:
         for room in sortedrooms:
@@ -469,7 +469,7 @@ def rentCalculation(request):
                 roomsum = 0
                 for room in Room.objects.filter(lease=l):
                     roomsum += room.rent * room.num_users
-                change = l.rent - roomsum #5*ceil(change/5)
+                change = float(l.rent) - float(roomsum) #5*ceil(change/5)
                 sortedrooms = sorted(rooms, key=attrgetter('rent'))
                 while change > 5:
                     for room in sortedrooms:
@@ -522,7 +522,7 @@ def rentCalculation(request):
                     roomsum = 0
                     for room in Room.objects.filter(lease=l):
                         roomsum += room.rent * room.num_users
-                    change = l.rent - roomsum #5*ceil(change/5)
+                    change = float(l.rent) - float(roomsum) #5*ceil(change/5)
                     sortedrooms = sorted(rooms, key=attrgetter('rent'))
                     while change > 5:
                         for room in sortedrooms:
